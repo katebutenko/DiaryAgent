@@ -1,0 +1,288 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CEA4C9651606447D008C856B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA4C9641606447D008C856B /* UIKit.framework */; };
+		CEA4C9671606447D008C856B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA4C9661606447D008C856B /* Foundation.framework */; };
+		CEA4C9691606447D008C856B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA4C9681606447D008C856B /* CoreGraphics.framework */; };
+		CEA4C96F1606447D008C856B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEA4C96D1606447D008C856B /* InfoPlist.strings */; };
+		CEA4C9711606447D008C856B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA4C9701606447D008C856B /* main.m */; };
+		CEA4C9751606447D008C856B /* DiaryAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA4C9741606447D008C856B /* DiaryAppDelegate.m */; };
+		CEA4C9781606447D008C856B /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEA4C9761606447D008C856B /* MainStoryboard.storyboard */; };
+		CEA4C97B1606447D008C856B /* DiaryMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA4C97A1606447D008C856B /* DiaryMasterViewController.m */; };
+		CEA4C97E1606447D008C856B /* DiaryDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA4C97D1606447D008C856B /* DiaryDetailViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		CEA4C9601606447D008C856B /* DiaryAgent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiaryAgent.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEA4C9641606447D008C856B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		CEA4C9661606447D008C856B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		CEA4C9681606447D008C856B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		CEA4C96C1606447D008C856B /* DiaryAgent-Info.plist */ = {isa = PBXFileReference; path = "DiaryAgent-Info.plist"; sourceTree = "<group>"; };
+		CEA4C96E1606447D008C856B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CEA4C9701606447D008C856B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CEA4C9721606447D008C856B /* DiaryAgent-Prefix.pch */ = {isa = PBXFileReference; path = "DiaryAgent-Prefix.pch"; sourceTree = "<group>"; };
+		CEA4C9731606447D008C856B /* DiaryAppDelegate.h */ = {isa = PBXFileReference; path = DiaryAppDelegate.h; sourceTree = "<group>"; };
+		CEA4C9741606447D008C856B /* DiaryAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiaryAppDelegate.m; sourceTree = "<group>"; };
+		CEA4C9771606447D008C856B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		CEA4C9791606447D008C856B /* DiaryMasterViewController.h */ = {isa = PBXFileReference; path = DiaryMasterViewController.h; sourceTree = "<group>"; };
+		CEA4C97A1606447D008C856B /* DiaryMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiaryMasterViewController.m; sourceTree = "<group>"; };
+		CEA4C97C1606447D008C856B /* DiaryDetailViewController.h */ = {isa = PBXFileReference; path = DiaryDetailViewController.h; sourceTree = "<group>"; };
+		CEA4C97D1606447D008C856B /* DiaryDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiaryDetailViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CEA4C95D1606447D008C856B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEA4C9651606447D008C856B /* UIKit.framework in Frameworks */,
+				CEA4C9671606447D008C856B /* Foundation.framework in Frameworks */,
+				CEA4C9691606447D008C856B /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CEA4C9551606447D008C856B = {
+			isa = PBXGroup;
+			children = (
+				CEA4C96A1606447D008C856B /* DiaryAgent */,
+				CEA4C9631606447D008C856B /* Frameworks */,
+				CEA4C9611606447D008C856B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CEA4C9611606447D008C856B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CEA4C9601606447D008C856B /* DiaryAgent.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CEA4C9631606447D008C856B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CEA4C9641606447D008C856B /* UIKit.framework */,
+				CEA4C9661606447D008C856B /* Foundation.framework */,
+				CEA4C9681606447D008C856B /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CEA4C96A1606447D008C856B /* DiaryAgent */ = {
+			isa = PBXGroup;
+			children = (
+				CEA4C9731606447D008C856B /* DiaryAppDelegate.h */,
+				CEA4C9741606447D008C856B /* DiaryAppDelegate.m */,
+				CEA4C9761606447D008C856B /* MainStoryboard.storyboard */,
+				CEA4C9791606447D008C856B /* DiaryMasterViewController.h */,
+				CEA4C97A1606447D008C856B /* DiaryMasterViewController.m */,
+				CEA4C97C1606447D008C856B /* DiaryDetailViewController.h */,
+				CEA4C97D1606447D008C856B /* DiaryDetailViewController.m */,
+				CEA4C96B1606447D008C856B /* Supporting Files */,
+			);
+			path = DiaryAgent;
+			sourceTree = "<group>";
+		};
+		CEA4C96B1606447D008C856B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CEA4C96C1606447D008C856B /* DiaryAgent-Info.plist */,
+				CEA4C96D1606447D008C856B /* InfoPlist.strings */,
+				CEA4C9701606447D008C856B /* main.m */,
+				CEA4C9721606447D008C856B /* DiaryAgent-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CEA4C95F1606447D008C856B /* DiaryAgent */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CEA4C9811606447D008C856B /* Build configuration list for PBXNativeTarget "DiaryAgent" */;
+			buildPhases = (
+				CEA4C95C1606447D008C856B /* Sources */,
+				CEA4C95D1606447D008C856B /* Frameworks */,
+				CEA4C95E1606447D008C856B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DiaryAgent;
+			productName = DiaryAgent;
+			productReference = CEA4C9601606447D008C856B /* DiaryAgent.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CEA4C9571606447D008C856B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = Diary;
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = CEA4C95A1606447D008C856B /* Build configuration list for PBXProject "DiaryAgent" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CEA4C9551606447D008C856B;
+			productRefGroup = CEA4C9611606447D008C856B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CEA4C95F1606447D008C856B /* DiaryAgent */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CEA4C95E1606447D008C856B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEA4C96F1606447D008C856B /* InfoPlist.strings in Resources */,
+				CEA4C9781606447D008C856B /* MainStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CEA4C95C1606447D008C856B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEA4C9711606447D008C856B /* main.m in Sources */,
+				CEA4C9751606447D008C856B /* DiaryAppDelegate.m in Sources */,
+				CEA4C97B1606447D008C856B /* DiaryMasterViewController.m in Sources */,
+				CEA4C97E1606447D008C856B /* DiaryDetailViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		CEA4C96D1606447D008C856B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CEA4C96E1606447D008C856B /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		CEA4C9761606447D008C856B /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CEA4C9771606447D008C856B /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CEA4C97F1606447D008C856B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		CEA4C9801606447D008C856B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CEA4C9821606447D008C856B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DiaryAgent/DiaryAgent-Prefix.pch";
+				INFOPLIST_FILE = "DiaryAgent/DiaryAgent-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		CEA4C9831606447D008C856B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DiaryAgent/DiaryAgent-Prefix.pch";
+				INFOPLIST_FILE = "DiaryAgent/DiaryAgent-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CEA4C95A1606447D008C856B /* Build configuration list for PBXProject "DiaryAgent" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEA4C97F1606447D008C856B /* Debug */,
+				CEA4C9801606447D008C856B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CEA4C9811606447D008C856B /* Build configuration list for PBXNativeTarget "DiaryAgent" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEA4C9821606447D008C856B /* Debug */,
+				CEA4C9831606447D008C856B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CEA4C9571606447D008C856B /* Project object */;
+}
