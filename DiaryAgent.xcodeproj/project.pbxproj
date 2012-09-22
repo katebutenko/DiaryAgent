@@ -16,6 +16,8 @@
 		CEA4C9781606447D008C856B /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEA4C9761606447D008C856B /* MainStoryboard.storyboard */; };
 		CEA4C97B1606447D008C856B /* DiaryMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA4C97A1606447D008C856B /* DiaryMasterViewController.m */; };
 		CEA4C97E1606447D008C856B /* DiaryDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA4C97D1606447D008C856B /* DiaryDetailViewController.m */; };
+		CEA4C986160644AE008C856B /* DiaryPost.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA4C985160644AE008C856B /* DiaryPost.m */; };
+		CEA4C98916064731008C856B /* DiaryPostDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA4C98816064731008C856B /* DiaryPostDataController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,17 +25,21 @@
 		CEA4C9641606447D008C856B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CEA4C9661606447D008C856B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CEA4C9681606447D008C856B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		CEA4C96C1606447D008C856B /* DiaryAgent-Info.plist */ = {isa = PBXFileReference; path = "DiaryAgent-Info.plist"; sourceTree = "<group>"; };
+		CEA4C96C1606447D008C856B /* DiaryAgent-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DiaryAgent-Info.plist"; sourceTree = "<group>"; };
 		CEA4C96E1606447D008C856B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CEA4C9701606447D008C856B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		CEA4C9721606447D008C856B /* DiaryAgent-Prefix.pch */ = {isa = PBXFileReference; path = "DiaryAgent-Prefix.pch"; sourceTree = "<group>"; };
-		CEA4C9731606447D008C856B /* DiaryAppDelegate.h */ = {isa = PBXFileReference; path = DiaryAppDelegate.h; sourceTree = "<group>"; };
+		CEA4C9721606447D008C856B /* DiaryAgent-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DiaryAgent-Prefix.pch"; sourceTree = "<group>"; };
+		CEA4C9731606447D008C856B /* DiaryAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiaryAppDelegate.h; sourceTree = "<group>"; };
 		CEA4C9741606447D008C856B /* DiaryAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiaryAppDelegate.m; sourceTree = "<group>"; };
 		CEA4C9771606447D008C856B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		CEA4C9791606447D008C856B /* DiaryMasterViewController.h */ = {isa = PBXFileReference; path = DiaryMasterViewController.h; sourceTree = "<group>"; };
+		CEA4C9791606447D008C856B /* DiaryMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiaryMasterViewController.h; sourceTree = "<group>"; };
 		CEA4C97A1606447D008C856B /* DiaryMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiaryMasterViewController.m; sourceTree = "<group>"; };
-		CEA4C97C1606447D008C856B /* DiaryDetailViewController.h */ = {isa = PBXFileReference; path = DiaryDetailViewController.h; sourceTree = "<group>"; };
+		CEA4C97C1606447D008C856B /* DiaryDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiaryDetailViewController.h; sourceTree = "<group>"; };
 		CEA4C97D1606447D008C856B /* DiaryDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiaryDetailViewController.m; sourceTree = "<group>"; };
+		CEA4C984160644AE008C856B /* DiaryPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiaryPost.h; sourceTree = "<group>"; };
+		CEA4C985160644AE008C856B /* DiaryPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiaryPost.m; sourceTree = "<group>"; };
+		CEA4C98716064731008C856B /* DiaryPostDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiaryPostDataController.h; sourceTree = "<group>"; };
+		CEA4C98816064731008C856B /* DiaryPostDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiaryPostDataController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +94,10 @@
 				CEA4C97C1606447D008C856B /* DiaryDetailViewController.h */,
 				CEA4C97D1606447D008C856B /* DiaryDetailViewController.m */,
 				CEA4C96B1606447D008C856B /* Supporting Files */,
+				CEA4C984160644AE008C856B /* DiaryPost.h */,
+				CEA4C985160644AE008C856B /* DiaryPost.m */,
+				CEA4C98716064731008C856B /* DiaryPostDataController.h */,
+				CEA4C98816064731008C856B /* DiaryPostDataController.m */,
 			);
 			path = DiaryAgent;
 			sourceTree = "<group>";
@@ -170,6 +180,8 @@
 				CEA4C9751606447D008C856B /* DiaryAppDelegate.m in Sources */,
 				CEA4C97B1606447D008C856B /* DiaryMasterViewController.m in Sources */,
 				CEA4C97E1606447D008C856B /* DiaryDetailViewController.m in Sources */,
+				CEA4C986160644AE008C856B /* DiaryPost.m in Sources */,
+				CEA4C98916064731008C856B /* DiaryPostDataController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
