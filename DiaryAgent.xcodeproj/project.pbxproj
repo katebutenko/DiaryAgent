@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05BD70E0160F861300277A82 /* NewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05BD70DF160F861300277A82 /* NewCell.xib */; };
+		05BD70E3160F864700277A82 /* NewTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD70E2160F864700277A82 /* NewTableCell.m */; };
 		05C15211160DFB4000F9AA32 /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C15210160DFB4000F9AA32 /* UserProfileViewController.m */; };
 		05C15214160F114100F9AA32 /* UserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C15213160F114100F9AA32 /* UserProfile.m */; };
 		05C1521B160F1C3100F9AA32 /* DiaryConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C1521A160F1C3000F9AA32 /* DiaryConnector.m */; };
@@ -28,6 +30,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		05BD70DF160F861300277A82 /* NewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewCell.xib; sourceTree = "<group>"; };
+		05BD70E1160F864700277A82 /* NewTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewTableCell.h; sourceTree = "<group>"; };
+		05BD70E2160F864700277A82 /* NewTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewTableCell.m; sourceTree = "<group>"; };
 		05C1520F160DFB4000F9AA32 /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileViewController.h; sourceTree = "<group>"; };
 		05C15210160DFB4000F9AA32 /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
 		05C15212160F114100F9AA32 /* UserProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfile.h; sourceTree = "<group>"; };
@@ -138,6 +143,9 @@
 				05C15213160F114100F9AA32 /* UserProfile.m */,
 				05C15219160F1C3000F9AA32 /* DiaryConnector.h */,
 				05C1521A160F1C3000F9AA32 /* DiaryConnector.m */,
+				05BD70DF160F861300277A82 /* NewCell.xib */,
+				05BD70E1160F864700277A82 /* NewTableCell.h */,
+				05BD70E2160F864700277A82 /* NewTableCell.m */,
 			);
 			path = DiaryAgent;
 			sourceTree = "<group>";
@@ -207,6 +215,7 @@
 				CEA4C96F1606447D008C856B /* InfoPlist.strings in Resources */,
 				CEA4C9781606447D008C856B /* MainStoryboard_1.storyboard in Resources */,
 				05C15226160F1EF500F9AA32 /* README.md in Resources */,
+				05BD70E0160F861300277A82 /* NewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,6 +237,7 @@
 				05C1521B160F1C3100F9AA32 /* DiaryConnector.m in Sources */,
 				05C15224160F1EF500F9AA32 /* HTMLNode.m in Sources */,
 				05C15225160F1EF500F9AA32 /* HTMLParser.m in Sources */,
+				05BD70E3160F864700277A82 /* NewTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -122,8 +122,20 @@
         
         //link to the post
         NSString *postLink = [[[singlePost findChildOfClass:@"postLinksBackg"] findChildTag:@"a"] getAttributeNamed:@"href"];
+        //short description
         
-        DiaryPost *diaryPost = [[DiaryPost alloc] initWithName:postTitle username:userName shortDescription:@"testdescr" avatar:avatar userLink:userLink postLink:postLink];
+        NSString *postDescription = [[singlePost findChildOfClass:@"paragraph"] allContents] ;
+        NSLog(@"Text: %@",postDescription);
+        NSString *trimmedString = [postDescription stringByTrimmingCharactersInSet:
+                                   [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSLog(@"Text: %@",trimmedString);
+       // NSString *firstCharacters = [postDescription
+       //  NSLog(@"Text: %@",firstCharacters);
+        if ([trimmedString length]>350){
+            trimmedString = [trimmedString substringToIndex:350];
+        }
+        
+        DiaryPost *diaryPost = [[DiaryPost alloc] initWithName:postTitle username:userName shortDescription:trimmedString avatar:avatar userLink:userLink postLink:postLink];
         [diaryPostsArray addObject:diaryPost];
     }
     

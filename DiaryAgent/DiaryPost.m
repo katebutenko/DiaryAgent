@@ -26,6 +26,7 @@
         //assign and store an avatarImage
         NSURL *imageURL = [NSURL URLWithString:avatar];
         NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
+        
         _avatarImage = [UIImage imageWithData:imageData];
         
         return self;
