@@ -16,12 +16,12 @@
 
 @synthesize username = _username, avatarImage = _avatarImage, rawProfileData = _rawProfileData;
 
--(id)initWithID:(NSString *)userID{
+-(id)initWithID:(NSString *)userLink{
     self = [super init];
     
     if (self) {
         DiaryConnector *diaryConnector = [[DiaryConnector alloc] init];
-        NSString *text = [diaryConnector getRawDataFromURL:add(@"http://www.diary.ru/member/",userID) selectorId:@"contant"];
+        NSString *text = [diaryConnector getRawDataFromURL:userLink selectorId:@"contant"];
 
         _rawProfileData = text;
         _username = nil;

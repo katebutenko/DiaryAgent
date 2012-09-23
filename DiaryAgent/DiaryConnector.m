@@ -106,22 +106,64 @@
     }
     
     HTMLNode *bodyNode = [parser body];
-   NSArray *postsArray = [bodyNode findChildrenWithAttribute:@"class" matchingName:@"singlePost" allowPartial:TRUE];
+   NSArray *postsArray = [bodyNode findChildrenWithAttribute:@"class" matchingName:@"singlePost  count" allowPartial:TRUE];
     NSMutableArray *diaryPostsArray = [[NSMutableArray alloc] init];
     
     for (HTMLNode *singlePost in postsArray){
         //find name of the posts's author
-        NSString *userName = [[singlePost findChildOfClass:@"authorName"] allContents];
+        HTMLNode *userNameNode = [singlePost findChildOfClass:@"authorName"];
+        NSString *userName = [userNameNode allContents];
+        NSString *userLink = [[userNameNode findChildTag:@"a"] getAttributeNamed:@"href"];
         
         //find title of the post
         NSString *postTitle = [[[singlePost findChildWithAttribute:@"class" matchingName:@"postTitle" allowPartial:TRUE] findChildTag:@"h2"] allContents];
+        //avatar
+        NSString *avatar = [[[singlePost findChildOfClass:@"avatar"] findChildTag:@"img"] getAttributeNamed:@"src"];
         
-        DiaryPost *diaryPost = [[DiaryPost alloc] initWithName:postTitle username:userName shortDescription:@"testdescr" avatar:@"testAva" userID:@"testId"];
+        //link to the post
+        NSString *postLink = [[[singlePost findChildOfClass:@"postLinksBackg"] findChildTag:@"a"] getAttributeNamed:@"href"];
+        
+        DiaryPost *diaryPost = [[DiaryPost alloc] initWithName:postTitle username:userName shortDescription:@"testdescr" avatar:avatar userLink:userLink postLink:postLink];
         [diaryPostsArray addObject:diaryPost];
     }
     
     return diaryPostsArray;
 
+}
+
+- (NSString *)getPostFromURL:(NSString *)URL{
+    NSMutableURLRequest *request =
+    [NSMutableURLRequest requestWithURL:[NSURL URLWithString:URL]
+                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                        timeoutInterval:10];
+    
+    [request setHTTPMethod: @"GET"];
+    
+    NSError *requestError;
+    NSURLResponse *urlResponse = nil;
+    
+    
+    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
+    NSString *html = [[NSString alloc] initWithBytes: [response bytes] length:[response length] encoding:NSWindowsCP1251StringEncoding];
+    
+    //find a title
+    
+    
+    NSError *error = nil;
+    HTMLParser *parser = [[HTMLParser alloc] initWithString:html error:&error];
+    
+    if (error) {
+        NSLog(@"Error: %@", error);
+        return nil;
+    }
+    
+    HTMLNode *bodyNode = [parser body];
+    HTMLNode *postNode = [bodyNode findChildWithAttribute:@"class" matchingName:@"singlePost  count" allowPartial:TRUE];
+    
+    HTMLNode *postContentNode = [postNode findChildOfClass:@"paragraph"];
+            
+    
+    return [postContentNode rawContents];
 }
 
 @end

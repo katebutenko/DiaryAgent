@@ -37,7 +37,7 @@
 -(void)initPostList{
 //create a connection
     DiaryConnector *diaryConnector = [[DiaryConnector alloc] init];
-    NSMutableArray *postList = [diaryConnector getFavorites:@"http://khkh"];
+    NSMutableArray *postList = [diaryConnector getFavorites:@"http://garrytheaxe"];
     self.diaryPostList = postList;
 
 }
@@ -49,9 +49,9 @@ return [self.diaryPostList count];
 - (DiaryPost *)objectInListAtIndex:(NSUInteger)theIndex {
 return [self.diaryPostList objectAtIndex:theIndex];
 }
--(void) addPostWithTitle:(NSString *)title username:(NSString *)username shortDescription:(NSString *)shortDescription   avatar:(NSString *)avatar userID:(NSString *)userID{
-    DiaryPost *post = [[DiaryPost alloc] initWithName:title username:username shortDescription:shortDescription avatar:avatar userID:userID];
-    [self.diaryPostList addObject:post];
+-(void) addPostWithTitle:(NSString *)title username:(NSString *)username shortDescription:(NSString *)shortDescription   avatar:(NSString *)avatar userLink:(NSString *)userLink{
+    //DiaryPost *post = [[DiaryPost alloc] initWithName:title username:username shortDescription:shortDescription avatar:avatar userLink:userLink];
+    //[self.diaryPostList addObject:post];
 }
 
 @end

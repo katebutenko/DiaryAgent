@@ -8,6 +8,7 @@
 
 #import "DiaryDetailViewController.h"
 #import "DiaryPost.h"
+#import "DiaryConnector.h"
 
 @interface DiaryDetailViewController ()
 - (void)configureView;
@@ -20,12 +21,12 @@
 
 @implementation DiaryDetailViewController
 @synthesize avatar = _avatar;
+@synthesize diaryPostWebView = _diaryPostWebView;
+@synthesize diaryPost=_diaryPost, titleLabel = _titleLabel, usernameLabel = _usernameLabel;
 
 - (void)UserProfileViewControllerDidFinish:(UserProfileViewController *)controller {
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
-
-@synthesize diaryPost=_diaryPost, titleLabel = _titleLabel, usernameLabel = _usernameLabel;
 
 #pragma mark - Managing the detail item
 
@@ -47,9 +48,11 @@
     if (post) {
         self.titleLabel.text = post.title;
         
-        //create an avatar image
-
         [self.avatar setImage:post.avatarImage];
+        DiaryConnector *diaryConnector = [[DiaryConnector alloc] init];
+        NSString *postText = [diaryConnector getPostFromURL:post.postLink];
+        [self.diaryPostWebView loadHTMLString:postText baseURL:nil];
+        self.usernameLabel.text = post.username;
     }
 }
 
@@ -65,6 +68,7 @@
     // Release any retained subviews of the main view.
     self.diaryPost = nil;
     [self setAvatar:nil];
+    [self setDiaryPostWebView:nil];
     [super viewDidUnload];
 }
 
@@ -77,7 +81,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     UserProfileViewController *userProfileController = (UserProfileViewController *)[[[segue destinationViewController] viewControllers] objectAtIndex:0];
-    UserProfile *userProfile = [[UserProfile alloc] initWithID:self.diaryPost.userID];
+    UserProfile *userProfile = [[UserProfile alloc] initWithID:self.diaryPost.userLink];
     userProfileController.userProfile = userProfile;
     userProfileController.delegate = self;
 }

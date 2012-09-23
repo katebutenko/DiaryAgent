@@ -14,6 +14,6 @@
 @property (nonatomic, copy) UIImage *avatarImage;
 @property (nonatomic, copy) NSString *rawProfileData;
 
--(id)initWithID:(NSString *)userID;
+-(id)initWithID:(NSString *)userLink;
 
 @end
