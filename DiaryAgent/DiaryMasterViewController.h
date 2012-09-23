@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DiaryDetailViewController.h"
+
+@class DiaryPostDataController;
 
 @interface DiaryMasterViewController : UITableViewController
+
+@property (strong, nonatomic) DiaryPostDataController *dataController;
 
 @end

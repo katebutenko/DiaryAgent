@@ -7,13 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05C15211160DFB4000F9AA32 /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C15210160DFB4000F9AA32 /* UserProfileViewController.m */; };
+		05C15214160F114100F9AA32 /* UserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C15213160F114100F9AA32 /* UserProfile.m */; };
+		05C1521B160F1C3100F9AA32 /* DiaryConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C1521A160F1C3000F9AA32 /* DiaryConnector.m */; };
+		05C15224160F1EF500F9AA32 /* HTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C15220160F1EF500F9AA32 /* HTMLNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		05C15225160F1EF500F9AA32 /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C15222160F1EF500F9AA32 /* HTMLParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		05C15226160F1EF500F9AA32 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 05C15223160F1EF500F9AA32 /* README.md */; };
+		05C15228160F2A5D00F9AA32 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C15227160F2A5D00F9AA32 /* libxml2.dylib */; };
 		CEA4C9651606447D008C856B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA4C9641606447D008C856B /* UIKit.framework */; };
 		CEA4C9671606447D008C856B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA4C9661606447D008C856B /* Foundation.framework */; };
 		CEA4C9691606447D008C856B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA4C9681606447D008C856B /* CoreGraphics.framework */; };
 		CEA4C96F1606447D008C856B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEA4C96D1606447D008C856B /* InfoPlist.strings */; };
 		CEA4C9711606447D008C856B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA4C9701606447D008C856B /* main.m */; };
 		CEA4C9751606447D008C856B /* DiaryAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA4C9741606447D008C856B /* DiaryAppDelegate.m */; };
-		CEA4C9781606447D008C856B /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEA4C9761606447D008C856B /* MainStoryboard.storyboard */; };
+		CEA4C9781606447D008C856B /* MainStoryboard_1.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEA4C9761606447D008C856B /* MainStoryboard_1.storyboard */; };
 		CEA4C97B1606447D008C856B /* DiaryMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA4C97A1606447D008C856B /* DiaryMasterViewController.m */; };
 		CEA4C97E1606447D008C856B /* DiaryDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA4C97D1606447D008C856B /* DiaryDetailViewController.m */; };
 		CEA4C986160644AE008C856B /* DiaryPost.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA4C985160644AE008C856B /* DiaryPost.m */; };
@@ -21,6 +28,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		05C1520F160DFB4000F9AA32 /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileViewController.h; sourceTree = "<group>"; };
+		05C15210160DFB4000F9AA32 /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
+		05C15212160F114100F9AA32 /* UserProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfile.h; sourceTree = "<group>"; };
+		05C15213160F114100F9AA32 /* UserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfile.m; sourceTree = "<group>"; };
+		05C15219160F1C3000F9AA32 /* DiaryConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiaryConnector.h; sourceTree = "<group>"; };
+		05C1521A160F1C3000F9AA32 /* DiaryConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiaryConnector.m; sourceTree = "<group>"; };
+		05C1521F160F1EF500F9AA32 /* HTMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLNode.h; sourceTree = "<group>"; };
+		05C15220160F1EF500F9AA32 /* HTMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLNode.m; sourceTree = "<group>"; };
+		05C15221160F1EF500F9AA32 /* HTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLParser.h; sourceTree = "<group>"; };
+		05C15222160F1EF500F9AA32 /* HTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLParser.m; sourceTree = "<group>"; };
+		05C15223160F1EF500F9AA32 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		05C15227160F2A5D00F9AA32 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		CEA4C9601606447D008C856B /* DiaryAgent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiaryAgent.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA4C9641606447D008C856B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CEA4C9661606447D008C856B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -31,7 +50,7 @@
 		CEA4C9721606447D008C856B /* DiaryAgent-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DiaryAgent-Prefix.pch"; sourceTree = "<group>"; };
 		CEA4C9731606447D008C856B /* DiaryAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiaryAppDelegate.h; sourceTree = "<group>"; };
 		CEA4C9741606447D008C856B /* DiaryAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiaryAppDelegate.m; sourceTree = "<group>"; };
-		CEA4C9771606447D008C856B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		CEA4C9771606447D008C856B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_1.storyboard; sourceTree = "<group>"; };
 		CEA4C9791606447D008C856B /* DiaryMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiaryMasterViewController.h; sourceTree = "<group>"; };
 		CEA4C97A1606447D008C856B /* DiaryMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiaryMasterViewController.m; sourceTree = "<group>"; };
 		CEA4C97C1606447D008C856B /* DiaryDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiaryDetailViewController.h; sourceTree = "<group>"; };
@@ -47,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05C15228160F2A5D00F9AA32 /* libxml2.dylib in Frameworks */,
 				CEA4C9651606447D008C856B /* UIKit.framework in Frameworks */,
 				CEA4C9671606447D008C856B /* Foundation.framework in Frameworks */,
 				CEA4C9691606447D008C856B /* CoreGraphics.framework in Frameworks */,
@@ -56,12 +76,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		05C1521E160F1EF400F9AA32 /* HTMLparser */ = {
+			isa = PBXGroup;
+			children = (
+				05C1521F160F1EF500F9AA32 /* HTMLNode.h */,
+				05C15220160F1EF500F9AA32 /* HTMLNode.m */,
+				05C15221160F1EF500F9AA32 /* HTMLParser.h */,
+				05C15222160F1EF500F9AA32 /* HTMLParser.m */,
+				05C15223160F1EF500F9AA32 /* README.md */,
+			);
+			path = HTMLparser;
+			sourceTree = "<group>";
+		};
 		CEA4C9551606447D008C856B = {
 			isa = PBXGroup;
 			children = (
+				05C15227160F2A5D00F9AA32 /* libxml2.dylib */,
 				CEA4C96A1606447D008C856B /* DiaryAgent */,
-				CEA4C9631606447D008C856B /* Frameworks */,
 				CEA4C9611606447D008C856B /* Products */,
+				CEA4C9631606447D008C856B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -86,9 +119,12 @@
 		CEA4C96A1606447D008C856B /* DiaryAgent */ = {
 			isa = PBXGroup;
 			children = (
+				05C1521E160F1EF400F9AA32 /* HTMLparser */,
+				05C15210160DFB4000F9AA32 /* UserProfileViewController.m */,
+				05C1520F160DFB4000F9AA32 /* UserProfileViewController.h */,
 				CEA4C9731606447D008C856B /* DiaryAppDelegate.h */,
 				CEA4C9741606447D008C856B /* DiaryAppDelegate.m */,
-				CEA4C9761606447D008C856B /* MainStoryboard.storyboard */,
+				CEA4C9761606447D008C856B /* MainStoryboard_1.storyboard */,
 				CEA4C9791606447D008C856B /* DiaryMasterViewController.h */,
 				CEA4C97A1606447D008C856B /* DiaryMasterViewController.m */,
 				CEA4C97C1606447D008C856B /* DiaryDetailViewController.h */,
@@ -98,6 +134,10 @@
 				CEA4C985160644AE008C856B /* DiaryPost.m */,
 				CEA4C98716064731008C856B /* DiaryPostDataController.h */,
 				CEA4C98816064731008C856B /* DiaryPostDataController.m */,
+				05C15212160F114100F9AA32 /* UserProfile.h */,
+				05C15213160F114100F9AA32 /* UserProfile.m */,
+				05C15219160F1C3000F9AA32 /* DiaryConnector.h */,
+				05C1521A160F1C3000F9AA32 /* DiaryConnector.m */,
 			);
 			path = DiaryAgent;
 			sourceTree = "<group>";
@@ -165,7 +205,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEA4C96F1606447D008C856B /* InfoPlist.strings in Resources */,
-				CEA4C9781606447D008C856B /* MainStoryboard.storyboard in Resources */,
+				CEA4C9781606447D008C856B /* MainStoryboard_1.storyboard in Resources */,
+				05C15226160F1EF500F9AA32 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,6 +223,11 @@
 				CEA4C97E1606447D008C856B /* DiaryDetailViewController.m in Sources */,
 				CEA4C986160644AE008C856B /* DiaryPost.m in Sources */,
 				CEA4C98916064731008C856B /* DiaryPostDataController.m in Sources */,
+				05C15211160DFB4000F9AA32 /* UserProfileViewController.m in Sources */,
+				05C15214160F114100F9AA32 /* UserProfile.m in Sources */,
+				05C1521B160F1C3100F9AA32 /* DiaryConnector.m in Sources */,
+				05C15224160F1EF500F9AA32 /* HTMLNode.m in Sources */,
+				05C15225160F1EF500F9AA32 /* HTMLParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,12 +242,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		CEA4C9761606447D008C856B /* MainStoryboard.storyboard */ = {
+		CEA4C9761606447D008C856B /* MainStoryboard_1.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				CEA4C9771606447D008C856B /* en */,
 			);
-			name = MainStoryboard.storyboard;
+			name = MainStoryboard_1.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -257,6 +303,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DiaryAgent/DiaryAgent-Prefix.pch";
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "DiaryAgent/DiaryAgent-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -268,6 +315,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DiaryAgent/DiaryAgent-Prefix.pch";
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "DiaryAgent/DiaryAgent-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -293,6 +341,7 @@
 				CEA4C9831606447D008C856B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

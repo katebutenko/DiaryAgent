@@ -7,34 +7,49 @@
 //
 
 #import "DiaryDetailViewController.h"
+#import "DiaryPost.h"
 
 @interface DiaryDetailViewController ()
 - (void)configureView;
 @end
 
-@implementation DiaryDetailViewController
+#import "UserProfileViewController.h"
 
-@synthesize detailItem = _detailItem;
-@synthesize detailDescriptionLabel = _detailDescriptionLabel;
+@interface DiaryDetailViewController () <UserProfileViewControllerDelegate>
+@end
+
+@implementation DiaryDetailViewController
+@synthesize avatar = _avatar;
+
+- (void)UserProfileViewControllerDidFinish:(UserProfileViewController *)controller {
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+@synthesize diaryPost=_diaryPost, titleLabel = _titleLabel, usernameLabel = _usernameLabel;
 
 #pragma mark - Managing the detail item
 
-- (void)setDetailItem:(id)newDetailItem
+- (void)setDiaryPost:(id)newDiaryPost
 {
-    if (_detailItem != newDetailItem) {
-        _detailItem = newDetailItem;
+    if (_diaryPost != newDiaryPost){
+        _diaryPost = newDiaryPost;
+    }
         
         // Update the view.
         [self configureView];
-    }
 }
 
 - (void)configureView
 {
     // Update the user interface for the detail item.
+    DiaryPost *post = self.diaryPost;
 
-    if (self.detailItem) {
-        self.detailDescriptionLabel.text = [self.detailItem description];
+    if (post) {
+        self.titleLabel.text = post.title;
+        
+        //create an avatar image
+
+        [self.avatar setImage:post.avatarImage];
     }
 }
 
@@ -47,14 +62,24 @@
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
     // Release any retained subviews of the main view.
-    self.detailDescriptionLabel = nil;
+    self.diaryPost = nil;
+    [self setAvatar:nil];
+    [super viewDidUnload];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+}
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    UserProfileViewController *userProfileController = (UserProfileViewController *)[[[segue destinationViewController] viewControllers] objectAtIndex:0];
+    UserProfile *userProfile = [[UserProfile alloc] initWithID:self.diaryPost.userID];
+    userProfileController.userProfile = userProfile;
+    userProfileController.delegate = self;
 }
 
 @end

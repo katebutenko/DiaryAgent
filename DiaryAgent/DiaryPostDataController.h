@@ -16,5 +16,5 @@
 - (NSUInteger)countOfList;
 - (DiaryPost *)objectInListAtIndex:(NSUInteger)theIndex;
 - (void)addPostWithTitle:(NSString *)title username:(NSString *)username shortDescription:(NSString *)shortDescription 
-         avatar:(NSString *)avatar;
+avatar:(NSString *)avatar userID:(NSString *)userID;
 @end

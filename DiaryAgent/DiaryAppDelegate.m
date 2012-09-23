@@ -7,6 +7,8 @@
 //
 
 #import "DiaryAppDelegate.h"
+#import "DiaryMasterViewController.h"
+#import "DiaryPostDataController.h"
 
 @implementation DiaryAppDelegate
 
@@ -14,7 +16,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+    DiaryMasterViewController *firstViewController = (DiaryMasterViewController *)[[navigationController viewControllers] objectAtIndex:0];
+    
+    DiaryPostDataController *aDataController = [[DiaryPostDataController alloc] init];
+    firstViewController.dataController = aDataController;
     return YES;
 }
 							

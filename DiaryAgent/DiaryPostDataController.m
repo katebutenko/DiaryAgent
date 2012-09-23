@@ -8,6 +8,7 @@
 
 #import "DiaryPostDataController.h"
 #import "DiaryPost.h"
+#import "DiaryConnector.h"
 
 @interface DiaryPostDataController()
 
@@ -35,9 +36,10 @@
 
 -(void)initPostList{
 //create a connection
-    NSMutableArray *postList = [[NSMutableArray alloc] init];
+    DiaryConnector *diaryConnector = [[DiaryConnector alloc] init];
+    NSMutableArray *postList = [diaryConnector getFavorites:@"http://khkh"];
     self.diaryPostList = postList;
-    [self addPostWithTitle:title username:username shortDescription:shortDescription avatar:avatar];
+
 }
 
 - (NSUInteger)countOfList {
@@ -47,8 +49,8 @@ return [self.diaryPostList count];
 - (DiaryPost *)objectInListAtIndex:(NSUInteger)theIndex {
 return [self.diaryPostList objectAtIndex:theIndex];
 }
--(void) addPostWithTitle:(NSString *)title username:(NSString *)username shortDescription:(NSString *)shortDescription   avatar:(NSString *)avatar{
-    DiaryPost *post = [[DiaryPost alloc] initWithName:title username:username shortDescription:shortDescription avatar:avatar];
+-(void) addPostWithTitle:(NSString *)title username:(NSString *)username shortDescription:(NSString *)shortDescription   avatar:(NSString *)avatar userID:(NSString *)userID{
+    DiaryPost *post = [[DiaryPost alloc] initWithName:title username:username shortDescription:shortDescription avatar:avatar userID:userID];
     [self.diaryPostList addObject:post];
 }
 

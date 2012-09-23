@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+@class DiaryPost;
 
-@interface DiaryDetailViewController : UIViewController
+@interface DiaryDetailViewController :  UIViewController
 
-@property (strong, nonatomic) id detailItem;
+@property (strong, nonatomic) DiaryPost *diaryPost;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *avatar;
 
-@property (strong, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 
 @end

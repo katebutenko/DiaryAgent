@@ -10,9 +10,9 @@
 
 @implementation DiaryPost
 
-@synthesize title = _title, username = _username, shortDescription = _shortDescription, avatar = _avatar;
+@synthesize title = _title, username = _username, shortDescription = _shortDescription, avatar = _avatar, avatarImage = _avatarImage, userID = _userID;
 
--(id)initWithName:(NSString *)title username:(NSString *)username shortDescription:(NSString *)shortDescription avatar:(NSString *)avatar{
+-(id)initWithName:(NSString *)title username:(NSString *)username shortDescription:(NSString *)shortDescription avatar:(NSString *)avatar userID:(NSString *)userID{
     
     self = [super init];
     
@@ -21,6 +21,12 @@
         _username = username;
         _shortDescription = shortDescription;
         _avatar = avatar;
+        _userID = userID;
+        //assign and store an avatarImage
+        NSURL *imageURL = [NSURL URLWithString:avatar];
+        NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
+        _avatarImage = [UIImage imageWithData:imageData];
+        
         return self;
     }
     
