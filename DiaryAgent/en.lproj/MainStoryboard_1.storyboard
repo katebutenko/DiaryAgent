@@ -47,7 +47,18 @@
                             <outlet property="delegate" destination="12" id="15"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Избранное" id="36"/>
+                    <navigationItem key="navigationItem" title="Избранное" id="36">
+                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="VIc-26-UaO">
+                            <connections>
+                                <action selector="changeUser:" destination="12" id="FYT-9L-8Z9"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="bookmarks" id="iwU-uc-8bA">
+                            <connections>
+                                <action selector="changeDiary:" destination="12" id="Ana-fa-XFN"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="21" kind="push" identifier="showDiaryPostDetails" id="YyX-hD-yzq"/>
                     </connections>
@@ -183,16 +194,13 @@
         </class>
         <class className="DiaryFavPostCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DiaryFavPostCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="avatarImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="postTitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
-            </relationships>
         </class>
         <class className="DiaryMasterViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DiaryMasterViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="changeDiary:"/>
+                <relationship kind="action" name="changeUser:"/>
+            </relationships>
         </class>
         <class className="UserProfileViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserProfileViewController.h"/>

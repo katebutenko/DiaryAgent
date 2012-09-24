@@ -14,5 +14,6 @@
 @interface DiaryMasterViewController : UITableViewController
 
 @property (strong, nonatomic) DiaryPostDataController *dataController;
-
+- (IBAction)changeUser:(id)sender;
+- (IBAction)changeDiary:(id)sender;
 @end

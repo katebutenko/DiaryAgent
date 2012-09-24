@@ -15,6 +15,7 @@
 #import "DiaryPost.h"
 #import "DiaryFavPostCell.h"
 #import "NewTableCell.h"
+#import "DiaryConnector.h"
 
 @implementation DiaryMasterViewController
 
@@ -30,8 +31,71 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+        
+    NSString *savedValue = [[NSUserDefaults standardUserDefaults]
+                            stringForKey:@"loginData"];
+    if ([savedValue length] == 0){
+    
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Login"
+                                                      message:nil
+                                                     delegate:self 
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:nil];
+    [message setAlertViewStyle:UIAlertViewStyleLoginAndPasswordInput];
+    [message show];
+    }
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+    NSString *alertTitle = alertView.title;
+    if([alertTitle isEqualToString:@"Login"] && [title isEqualToString:@"OK"])
+    {
+        UITextField *username = [alertView textFieldAtIndex:0];
+        UITextField *password = [alertView textFieldAtIndex:1];
+        NSLog(@"Username: %@\nPassword: %@", username.text, password.text);
+    
+        DiaryConnector *diaryConnector = [[DiaryConnector alloc] init];
+        
+    NSString *valueToSave = [diaryConnector getEncodedDataForLogin:username.text password:password.text];
+    [[NSUserDefaults standardUserDefaults] setObject:valueToSave forKey:@"loginData"];
+    
+
+    }
+    if([alertTitle isEqualToString:@"Diary"] && [title isEqualToString:@"OK"])
+    {
+        UITextField *diaryName = [alertView textFieldAtIndex:0];
+
+        NSString *valueToSave = diaryName.text;
+        NSLog(@"DiaryName %@",valueToSave);
+        [[NSUserDefaults standardUserDefaults] setObject:valueToSave forKey:@"diaryName"];
+        
+        
+    }
+}
+-(IBAction)changeUser:(id)sender{
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Login"
+                                                      message:nil
+                                                     delegate:self
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:@"Cancel",nil];
+    [message setAlertViewStyle:UIAlertViewStyleLoginAndPasswordInput];
+    
+    [message show];
+
+    
+}
+-(IBAction)changeDiary:(id)sender{
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Diary"
+                                                      message:@"Выберите дневник"
+                                                     delegate:self
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:@"Cancel",nil];
+    [message setAlertViewStyle:UIAlertViewStylePlainTextInput];
+    
+    [message show];
+}
 - (void)viewDidUnload
 {
     [super viewDidUnload];

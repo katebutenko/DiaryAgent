@@ -53,6 +53,10 @@
                         timeoutInterval:10];
     
     [request setHTTPMethod: @"GET"];
+    NSString *savedCredentials = [[NSUserDefaults standardUserDefaults]
+                                  stringForKey:@"loginData"];
+    
+    [request addValue:savedCredentials forHTTPHeaderField:@"Cookie"];
     
     NSError *requestError;
     NSURLResponse *urlResponse = nil;
@@ -60,9 +64,6 @@
     
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
     NSString *html = [[NSString alloc] initWithBytes: [response bytes] length:[response length] encoding:NSWindowsCP1251StringEncoding];
-    
-    //find a title
-    
     
     NSError *error = nil;
     HTMLParser *parser = [[HTMLParser alloc] initWithString:html error:&error];
@@ -80,20 +81,26 @@
 }
 
 -(NSMutableArray *) getFavorites:(NSString *)diaryName{
+
     NSMutableURLRequest *request =
-    [NSMutableURLRequest requestWithURL:[NSURL URLWithString:add(diaryName,@".diary.ru/?favorite")]
-                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+    [NSMutableURLRequest requestWithURL:[NSURL URLWithString:add(diaryName,@".diary.ru/?favorite")] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                         timeoutInterval:10];
     
     [request setHTTPMethod: @"GET"];
     
+    [request setValue:@"text/html" forHTTPHeaderField:@"Content-Type"];
+
+    NSString *savedCredentials = [[NSUserDefaults standardUserDefaults]
+                            stringForKey:@"loginData"];
+    
+    [request addValue:savedCredentials forHTTPHeaderField:@"Cookie"];
     NSError *requestError;
     NSURLResponse *urlResponse = nil;
     
     
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
     NSString *html = [[NSString alloc] initWithBytes: [response bytes] length:[response length] encoding:NSWindowsCP1251StringEncoding];
-    
+    NSLog(@"html: %@", html);
     //find a title
     
     
@@ -129,8 +136,7 @@
         NSString *trimmedString = [postDescription stringByTrimmingCharactersInSet:
                                    [NSCharacterSet whitespaceAndNewlineCharacterSet]];
         NSLog(@"Text: %@",trimmedString);
-       // NSString *firstCharacters = [postDescription
-       //  NSLog(@"Text: %@",firstCharacters);
+       
         if ([trimmedString length]>350){
             trimmedString = [trimmedString substringToIndex:350];
         }
@@ -150,6 +156,10 @@
                         timeoutInterval:10];
     
     [request setHTTPMethod: @"GET"];
+    NSString *savedCredentials = [[NSUserDefaults standardUserDefaults]
+                                  stringForKey:@"loginData"];
+    
+    [request addValue:savedCredentials forHTTPHeaderField:@"Cookie"];
     
     NSError *requestError;
     NSURLResponse *urlResponse = nil;
@@ -157,8 +167,6 @@
     
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
     NSString *html = [[NSString alloc] initWithBytes: [response bytes] length:[response length] encoding:NSWindowsCP1251StringEncoding];
-    
-    //find a title
     
     
     NSError *error = nil;
@@ -176,6 +184,56 @@
             
     
     return [postContentNode rawContents];
+}
+
+-(NSString *)getEncodedDataForLogin:(NSString *)username password:(NSString *)password{
+    NSMutableURLRequest *request =
+    [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://www.diary.ru/login.php"] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                        timeoutInterval:10];
+    
+    [request setHTTPMethod: @"POST"];
+    
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableString *credentials = (NSMutableString *)@"user_login=";
+    credentials = (NSMutableString *)add(credentials,username);
+    credentials = (NSMutableString *)add(credentials,@"&user_pass=");
+    credentials = (NSMutableString *)add(credentials,password);
+    
+    NSData *data = [credentials dataUsingEncoding:NSUTF8StringEncoding];
+    [request setHTTPBody:data];
+    
+    
+    NSError *requestError;
+    NSURLResponse *urlResponse = nil;
+    
+    [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
+    
+NSDictionary* headers = [(NSHTTPURLResponse *)urlResponse allHeaderFields];
+    
+    NSString *specificCookie = [headers objectForKey:@"Set-Cookie"];
+    
+    NSRegularExpression* regexToUse = [[NSRegularExpression alloc]
+                                       initWithPattern:@"user_[^\\s]+;"
+                                       options:NSRegularExpressionCaseInsensitive
+                                       error:nil];
+    NSArray* foundInText = [regexToUse matchesInString:specificCookie options:0 range:NSMakeRange(0, [specificCookie length])];
+    
+    NSMutableString* encryptedLoginData = (NSMutableString *)@"";
+    
+    for (NSTextCheckingResult* searchResult in foundInText)
+    {
+        NSString* textResult = [specificCookie substringWithRange:searchResult.range];
+        NSLog(@"Result: %@", textResult);
+        encryptedLoginData = (NSMutableString *)add(encryptedLoginData,@" ");
+        encryptedLoginData = (NSMutableString *)add(encryptedLoginData,textResult);
+        NSLog(@"EncryptedLoginData: %@", encryptedLoginData);
+        
+    }
+    NSLog(@"EncryptedLoginData: %@", encryptedLoginData);
+    return encryptedLoginData;
+    
+  
 }
 
 @end

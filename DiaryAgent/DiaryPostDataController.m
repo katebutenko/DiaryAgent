@@ -9,6 +9,7 @@
 #import "DiaryPostDataController.h"
 #import "DiaryPost.h"
 #import "DiaryConnector.h"
+#define add(A,B) [(A) stringByAppendingString:(B)]
 
 @interface DiaryPostDataController()
 
@@ -35,11 +36,16 @@
 }
 
 -(void)initPostList{
-//create a connection
-    DiaryConnector *diaryConnector = [[DiaryConnector alloc] init];
-    NSMutableArray *postList = [diaryConnector getFavorites:@"http://garrytheaxe"];
-    self.diaryPostList = postList;
 
+    DiaryConnector *diaryConnector = [[DiaryConnector alloc] init];
+    NSString *diaryName = [[NSUserDefaults standardUserDefaults]
+                                  stringForKey:@"diaryName"];
+    if ([diaryName length]==0){
+        diaryName = @"khkh";
+    }
+    NSMutableArray *postList = [diaryConnector getFavorites:add(@"http://",diaryName)];
+    self.diaryPostList = postList;
+    
 }
 
 - (NSUInteger)countOfList {

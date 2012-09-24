@@ -16,5 +16,6 @@
 - (NSString *)getRawDataFromURL:(NSString *)URL selectorId:(NSString *)selectorId;
 - (NSMutableArray *)getFavorites:(NSString *)diaryName;
 - (NSString *)getPostFromURL:(NSString *)URL;
+- (NSString *)getEncodedDataForLogin:(NSString *)username password:(NSString *)password;
 
 @end
