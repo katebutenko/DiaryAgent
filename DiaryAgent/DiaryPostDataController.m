@@ -38,6 +38,7 @@
 -(void)initPostList{
 
     DiaryConnector *diaryConnector = [[DiaryConnector alloc] init];
+    //[diaryConnector asyncTest];
     NSString *diaryName = [[NSUserDefaults standardUserDefaults]
                                   stringForKey:@"diaryName"];
     if ([diaryName length]==0){

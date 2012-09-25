@@ -12,9 +12,12 @@
 #import "DiaryPost.h"
 
 #define add(A,B) [(A) stringByAppendingString:(B)]
-
+@interface DiaryConnector()
+@property (nonatomic, copy) NSMutableData *data;
+-(void *)handledata;
+@end
 @implementation DiaryConnector
-
+@synthesize data;
 -(HTMLNode *) getRawDataFromURL:(NSString *)URL selectorClass:(NSString *)selectorClass{
     NSMutableURLRequest *request =
     [NSMutableURLRequest requestWithURL:[NSURL URLWithString:URL]
@@ -234,6 +237,38 @@ NSDictionary* headers = [(NSHTTPURLResponse *)urlResponse allHeaderFields];
     return encryptedLoginData;
     
   
+}
+
+-(void)asyncTest{
+     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://khkh.diary.ru"]
+                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                        timeoutInterval:10];
+    
+    [request setHTTPMethod: @"GET"];
+    NSURLConnection* connection = [[NSURLConnection alloc] initWithRequest:request  delegate:self startImmediately:YES]; // release later
+
+}
+
+-(void)connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse*)response
+{
+    data = [[NSMutableData alloc] init]; // _data being an ivar
+}
+-(void)connection:(NSURLConnection*)connection didReceiveData:(NSData*)receiveddata
+{
+    [data appendData:receiveddata];
+     NSString *html = [[NSString alloc] initWithBytes: [data bytes] length:[data length] encoding:NSWindowsCP1251StringEncoding];
+    NSLog(@"data %@",html);
+}
+-(void)connection:(NSURLConnection*)connection didFailWithError:(NSError*)error
+{
+    // Handle the error properly
+}
+-(void)connectionDidFinishLoading:(NSURLConnection*)connection
+{
+    [self handledata]; // Deal with the data
+}
+-(void *)handledata{
+
 }
 
 @end
