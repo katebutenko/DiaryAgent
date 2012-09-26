@@ -16,6 +16,7 @@
 #import "DiaryFavPostCell.h"
 #import "NewTableCell.h"
 #import "DiaryConnector.h"
+#import "LoadingView.h"
 
 @implementation DiaryMasterViewController
 
@@ -31,8 +32,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-        
-    NSString *savedValue = [[NSUserDefaults standardUserDefaults]
+        NSString *savedValue = [[NSUserDefaults standardUserDefaults]
                             stringForKey:@"loginData"];
     if ([savedValue length] == 0){
     
@@ -161,11 +161,15 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"showDiaryPostDetails"]) {
+        
+
         DiaryDetailViewController *detailViewController = [segue destinationViewController];
         
         detailViewController.diaryPost = [self.dataController objectInListAtIndex:[self.tableView indexPathForSelectedRow].row];
+        
     }
 }
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -174,6 +178,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self performSegueWithIdentifier:@"showDiaryPostDetails" sender:self];
+
+       [self performSegueWithIdentifier:@"showDiaryPostDetails" sender:self];
 }
 @end

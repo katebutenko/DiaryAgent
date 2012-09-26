@@ -9,6 +9,7 @@
 #import "DiaryDetailViewController.h"
 #import "DiaryPost.h"
 #import "DiaryConnector.h"
+#import "LoadingView.h"
 
 @interface DiaryDetailViewController ()
 - (void)configureView;
@@ -44,18 +45,22 @@
 {
     // Update the user interface for the detail item.
     DiaryPost *post = self.diaryPost;
-
+    LoadingView *loadingView =
+    [LoadingView loadingViewInView:self.view];
+    
     if (post) {
         self.titleLabel.text = post.title;
         
         [self.avatar setImage:post.avatarImage];
-        DiaryConnector *diaryConnector = [[DiaryConnector alloc] init];
-        NSString *postText = [diaryConnector getPostFromURL:post.postLink];
-        [self.diaryPostWebView loadHTMLString:postText baseURL:nil];
+        DiaryConnector *diaryConnector = [[DiaryConnector alloc] initWithLoadingView:loadingView viewController:self];
+        [diaryConnector asyncGetPostFromURL:post.postLink];
+        
         self.usernameLabel.text = post.username;
     }
 }
-
+-(void)setText:(NSString *)text{
+    [self.diaryPostWebView loadHTMLString:text baseURL:nil];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];

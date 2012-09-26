@@ -14,10 +14,15 @@
 #define add(A,B) [(A) stringByAppendingString:(B)]
 @interface DiaryConnector()
 @property (nonatomic, copy) NSMutableData *data;
--(void *)handledata;
+@property (nonatomic, weak) UIView *loadingView;
+@property (nonatomic, weak) id viewController;
+-(void)handledata;
 @end
 @implementation DiaryConnector
 @synthesize data;
+@synthesize loadingView = _loadingView;
+@synthesize viewController = _viewController;
+
 -(HTMLNode *) getRawDataFromURL:(NSString *)URL selectorClass:(NSString *)selectorClass{
     NSMutableURLRequest *request =
     [NSMutableURLRequest requestWithURL:[NSURL URLWithString:URL]
@@ -239,6 +244,17 @@ NSDictionary* headers = [(NSHTTPURLResponse *)urlResponse allHeaderFields];
   
 }
 
+-(id)initWithLoadingView:(UIView *)loadingView viewController:(id)viewController{
+    self = [super init];
+    
+    if (self) {
+        _loadingView = loadingView;
+        _viewController = viewController;
+        return self;
+    }
+    return nil;
+}
+
 -(void)asyncTest{
      NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://khkh.diary.ru"]
                             cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
@@ -248,6 +264,22 @@ NSDictionary* headers = [(NSHTTPURLResponse *)urlResponse allHeaderFields];
     NSURLConnection* connection = [[NSURLConnection alloc] initWithRequest:request  delegate:self startImmediately:YES]; // release later
 
 }
+- (void)asyncGetPostFromURL:(NSString *)URL{
+    NSMutableURLRequest *request =
+    [NSMutableURLRequest requestWithURL:[NSURL URLWithString:URL]
+                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                        timeoutInterval:10];
+    
+    [request setHTTPMethod: @"GET"];
+    NSString *savedCredentials = [[NSUserDefaults standardUserDefaults]
+                                  stringForKey:@"loginData"];
+    
+    [request addValue:savedCredentials forHTTPHeaderField:@"Cookie"];
+    
+     NSURLConnection* connection = [[NSURLConnection alloc] initWithRequest:request  delegate:self startImmediately:YES];    
+    
+}
+
 
 -(void)connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse*)response
 {
@@ -256,8 +288,8 @@ NSDictionary* headers = [(NSHTTPURLResponse *)urlResponse allHeaderFields];
 -(void)connection:(NSURLConnection*)connection didReceiveData:(NSData*)receiveddata
 {
     [data appendData:receiveddata];
-     NSString *html = [[NSString alloc] initWithBytes: [data bytes] length:[data length] encoding:NSWindowsCP1251StringEncoding];
-    NSLog(@"data %@",html);
+     //NSString *html = [[NSString alloc] initWithBytes: [data bytes] length:[data length] encoding:NSWindowsCP1251StringEncoding];
+    //NSLog(@"data %@",html);
 }
 -(void)connection:(NSURLConnection*)connection didFailWithError:(NSError*)error
 {
@@ -267,8 +299,28 @@ NSDictionary* headers = [(NSHTTPURLResponse *)urlResponse allHeaderFields];
 {
     [self handledata]; // Deal with the data
 }
--(void *)handledata{
+-(void)handledata{
 
+    NSString *html = [[NSString alloc] initWithBytes: [data bytes] length:[data length] encoding:NSWindowsCP1251StringEncoding];
+    
+    NSError *error = nil;
+    HTMLParser *parser = [[HTMLParser alloc] initWithString:html error:&error];
+    
+    if (error) {
+        NSLog(@"Error: %@", error);
+        return;
+    }
+    
+    HTMLNode *bodyNode = [parser body];
+    HTMLNode *postNode = [bodyNode findChildWithAttribute:@"class" matchingName:@"singlePost  count" allowPartial:TRUE];
+    
+    HTMLNode *postContentNode = [postNode findChildOfClass:@"paragraph"];
+    
+    [self.viewController setText:[postContentNode rawContents] ];
+
+    [self.loadingView
+     performSelector:@selector(removeView)
+     withObject:nil];
 }
 
 @end

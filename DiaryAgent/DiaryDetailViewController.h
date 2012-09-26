@@ -17,5 +17,5 @@
 @property (weak, nonatomic) IBOutlet UIImageView *avatar;
 
 @property (weak, nonatomic) IBOutlet UIWebView *diaryPostWebView;
-
+-(void)setText:(NSString *)text;
 @end
