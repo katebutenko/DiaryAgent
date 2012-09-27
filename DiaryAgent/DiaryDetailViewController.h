@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HTMLNode.h"
 @class DiaryPost;
 
 @interface DiaryDetailViewController :  UIViewController
@@ -17,5 +18,5 @@
 @property (weak, nonatomic) IBOutlet UIImageView *avatar;
 
 @property (weak, nonatomic) IBOutlet UIWebView *diaryPostWebView;
--(void)setText:(NSString *)text;
+-(void)setWebData:(HTMLNode *)data;
 @end

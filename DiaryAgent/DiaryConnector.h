@@ -12,13 +12,12 @@
 
 @interface DiaryConnector : NSObject
 
-- (id)initWithLoadingView:(UIView *)loadingView viewController:(id)viewController;
+- (id)initWithViewController:(id)viewController;
 - (HTMLNode *)getRawDataFromURL:(NSString *)URL selectorClass:(NSString *)selectorClass;
 - (NSString *)getRawDataFromURL:(NSString *)URL selectorId:(NSString *)selectorId;
 - (NSMutableArray *)getFavorites:(NSString *)diaryName;
-- (NSString *)getPostFromURL:(NSString *)URL;
+- (void)asyncGetFavorites:(NSString *)diaryName;
 - (void)asyncGetPostFromURL:(NSString *)URL;
 - (NSString *)getEncodedDataForLogin:(NSString *)username password:(NSString *)password;
--(void)asyncTest;
 
 @end

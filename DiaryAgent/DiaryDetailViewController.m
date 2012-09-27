@@ -10,8 +10,12 @@
 #import "DiaryPost.h"
 #import "DiaryConnector.h"
 #import "LoadingView.h"
+#import "HTMLNode.h"
+#import "HTMLParser.h"
 
 @interface DiaryDetailViewController ()
+@property (strong, nonatomic) HTMLNode *data;
+@property (weak, nonatomic) LoadingView *loadingView;
 - (void)configureView;
 @end
 
@@ -23,7 +27,7 @@
 @implementation DiaryDetailViewController
 @synthesize avatar = _avatar;
 @synthesize diaryPostWebView = _diaryPostWebView;
-@synthesize diaryPost=_diaryPost, titleLabel = _titleLabel, usernameLabel = _usernameLabel;
+@synthesize diaryPost=_diaryPost, titleLabel = _titleLabel, usernameLabel = _usernameLabel, data = _data, loadingView=_loadingView;
 
 - (void)UserProfileViewControllerDidFinish:(UserProfileViewController *)controller {
     [self dismissViewControllerAnimated:YES completion:NULL];
@@ -35,8 +39,7 @@
 {
     if (_diaryPost != newDiaryPost){
         _diaryPost = newDiaryPost;
-    }
-        
+    }        
         // Update the view.
         [self configureView];
 }
@@ -47,25 +50,32 @@
     DiaryPost *post = self.diaryPost;
     LoadingView *loadingView =
     [LoadingView loadingViewInView:self.view];
-    
+    self.loadingView = loadingView;
     if (post) {
         self.titleLabel.text = post.title;
         
         [self.avatar setImage:post.avatarImage];
-        DiaryConnector *diaryConnector = [[DiaryConnector alloc] initWithLoadingView:loadingView viewController:self];
+        DiaryConnector *diaryConnector = [[DiaryConnector alloc] initWithViewController:self];
         [diaryConnector asyncGetPostFromURL:post.postLink];
         
         self.usernameLabel.text = post.username;
     }
 }
--(void)setText:(NSString *)text{
+-(void)setWebData:(HTMLNode *)data{
+    self.data = data;
+    HTMLNode *postNode = [self.data findChildWithAttribute:@"class" matchingName:@"singlePost  count" allowPartial:TRUE];
+    
+    HTMLNode *postContentNode = [postNode findChildOfClass:@"paragraph"];
+    NSString *text = [postContentNode rawContents];
     [self.diaryPostWebView loadHTMLString:text baseURL:nil];
+    
+    [self.loadingView
+     performSelector:@selector(removeView)
+     withObject:nil];
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    [self configureView];
 }
 
 - (void)viewDidUnload

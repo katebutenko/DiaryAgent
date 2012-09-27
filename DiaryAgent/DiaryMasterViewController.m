@@ -133,15 +133,6 @@
     DiaryPost *postAtIndex = [self.dataController objectInListAtIndex:indexPath.row];
     
     postCell.userNameLabel.text = postAtIndex.username;
-    /*
-    DiaryFavPostCell *postCell = (DiaryFavPostCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (postCell == nil)
-    {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"DiaryFavoritePostCell" owner:self options:nil];
-        postCell = [nib objectAtIndex:0];
-    }
-    DiaryPost *postAtIndex = [self.dataController objectInListAtIndex:indexPath.row];
-    postCell.label.text = postAtIndex.username;*/
     
     postCell.postTitleLabel.text = postAtIndex.title;
 
@@ -181,4 +172,8 @@
 
        [self performSegueWithIdentifier:@"showDiaryPostDetails" sender:self];
 }
+-(void)reloadData{
+    [(UITableView *)self.view reloadData];
+}
+
 @end

@@ -14,44 +14,15 @@
 #define add(A,B) [(A) stringByAppendingString:(B)]
 @interface DiaryConnector()
 @property (nonatomic, copy) NSMutableData *data;
-@property (nonatomic, weak) UIView *loadingView;
 @property (nonatomic, weak) id viewController;
 -(void)handledata;
 @end
 @implementation DiaryConnector
 @synthesize data;
-@synthesize loadingView = _loadingView;
 @synthesize viewController = _viewController;
 
 -(HTMLNode *) getRawDataFromURL:(NSString *)URL selectorClass:(NSString *)selectorClass{
-    NSMutableURLRequest *request =
-    [NSMutableURLRequest requestWithURL:[NSURL URLWithString:URL]
-                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-                        timeoutInterval:10];
-    
-    [request setHTTPMethod: @"GET"];
-    
-    NSError *requestError;
-    NSURLResponse *urlResponse = nil;
-    
-    
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
-    NSString *html = [[NSString alloc] initWithBytes: [response bytes] length:[response length] encoding:NSWindowsCP1251StringEncoding];
-    
-    //find a title
-    
-    
-    NSError *error = nil;
-    HTMLParser *parser = [[HTMLParser alloc] initWithString:html error:&error];
-    
-    if (error) {
-        NSLog(@"Error: %@", error);
-        return nil;
-    }
-    
-    HTMLNode *bodyNode = [parser body];
-        
-    return [bodyNode findChildOfClass:selectorClass];
+    // return [bodyNode findChildOfClass:selectorClass];
 }
 
 -(NSString *) getRawDataFromURL:(NSString *)URL selectorId:(NSString *)selectorId{
@@ -157,43 +128,6 @@
 
 }
 
-- (NSString *)getPostFromURL:(NSString *)URL{
-    NSMutableURLRequest *request =
-    [NSMutableURLRequest requestWithURL:[NSURL URLWithString:URL]
-                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-                        timeoutInterval:10];
-    
-    [request setHTTPMethod: @"GET"];
-    NSString *savedCredentials = [[NSUserDefaults standardUserDefaults]
-                                  stringForKey:@"loginData"];
-    
-    [request addValue:savedCredentials forHTTPHeaderField:@"Cookie"];
-    
-    NSError *requestError;
-    NSURLResponse *urlResponse = nil;
-    
-    
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
-    NSString *html = [[NSString alloc] initWithBytes: [response bytes] length:[response length] encoding:NSWindowsCP1251StringEncoding];
-    
-    
-    NSError *error = nil;
-    HTMLParser *parser = [[HTMLParser alloc] initWithString:html error:&error];
-    
-    if (error) {
-        NSLog(@"Error: %@", error);
-        return nil;
-    }
-    
-    HTMLNode *bodyNode = [parser body];
-    HTMLNode *postNode = [bodyNode findChildWithAttribute:@"class" matchingName:@"singlePost  count" allowPartial:TRUE];
-    
-    HTMLNode *postContentNode = [postNode findChildOfClass:@"paragraph"];
-            
-    
-    return [postContentNode rawContents];
-}
-
 -(NSString *)getEncodedDataForLogin:(NSString *)username password:(NSString *)password{
     NSMutableURLRequest *request =
     [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://www.diary.ru/login.php"] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
@@ -244,26 +178,31 @@ NSDictionary* headers = [(NSHTTPURLResponse *)urlResponse allHeaderFields];
   
 }
 
--(id)initWithLoadingView:(UIView *)loadingView viewController:(id)viewController{
+-(id)initWithViewController:(id)viewController{
     self = [super init];
     
     if (self) {
-        _loadingView = loadingView;
         _viewController = viewController;
         return self;
     }
     return nil;
 }
-
--(void)asyncTest{
-     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://khkh.diary.ru"]
+-(void) asyncGetFavorites:(NSString *)diaryName{
+    NSMutableURLRequest *request =
+    [NSMutableURLRequest requestWithURL:[NSURL URLWithString:add(diaryName,@".diary.ru/?favorite")]
                             cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                         timeoutInterval:10];
     
     [request setHTTPMethod: @"GET"];
-    NSURLConnection* connection = [[NSURLConnection alloc] initWithRequest:request  delegate:self startImmediately:YES]; // release later
-
+    NSString *savedCredentials = [[NSUserDefaults standardUserDefaults]
+                                  stringForKey:@"loginData"];
+    
+    [request addValue:savedCredentials forHTTPHeaderField:@"Cookie"];
+    
+     NSURLConnection* connection = [[NSURLConnection alloc] initWithRequest:request  delegate:self startImmediately:YES];
+    
 }
+
 - (void)asyncGetPostFromURL:(NSString *)URL{
     NSMutableURLRequest *request =
     [NSMutableURLRequest requestWithURL:[NSURL URLWithString:URL]
@@ -288,8 +227,6 @@ NSDictionary* headers = [(NSHTTPURLResponse *)urlResponse allHeaderFields];
 -(void)connection:(NSURLConnection*)connection didReceiveData:(NSData*)receiveddata
 {
     [data appendData:receiveddata];
-     //NSString *html = [[NSString alloc] initWithBytes: [data bytes] length:[data length] encoding:NSWindowsCP1251StringEncoding];
-    //NSLog(@"data %@",html);
 }
 -(void)connection:(NSURLConnection*)connection didFailWithError:(NSError*)error
 {
@@ -312,15 +249,8 @@ NSDictionary* headers = [(NSHTTPURLResponse *)urlResponse allHeaderFields];
     }
     
     HTMLNode *bodyNode = [parser body];
-    HTMLNode *postNode = [bodyNode findChildWithAttribute:@"class" matchingName:@"singlePost  count" allowPartial:TRUE];
     
-    HTMLNode *postContentNode = [postNode findChildOfClass:@"paragraph"];
-    
-    [self.viewController setText:[postContentNode rawContents] ];
-
-    [self.loadingView
-     performSelector:@selector(removeView)
-     withObject:nil];
+    [self.viewController performSelector:@selector(setWebData:) withObject:bodyNode];
 }
 
 @end

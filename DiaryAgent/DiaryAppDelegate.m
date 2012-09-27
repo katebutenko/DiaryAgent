@@ -19,7 +19,7 @@
     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
     DiaryMasterViewController *firstViewController = (DiaryMasterViewController *)[[navigationController viewControllers] objectAtIndex:0];
     
-    DiaryPostDataController *aDataController = [[DiaryPostDataController alloc] init];
+    DiaryPostDataController *aDataController = [[DiaryPostDataController alloc] initWithTable:firstViewController];
     firstViewController.dataController = aDataController;
     return YES;
 }
