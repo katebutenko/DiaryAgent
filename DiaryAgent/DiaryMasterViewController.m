@@ -22,7 +22,7 @@
 
 
 
-@synthesize dataController = _dataController;
+@synthesize dataController = _dataController, loadingView=_loadingView;
 
 - (void)awakeFromNib
 {
@@ -174,6 +174,9 @@
 }
 -(void)reloadData{
     [(UITableView *)self.view reloadData];
+    [self.loadingView
+     performSelector:@selector(removeView)
+     withObject:nil];
 }
 
 @end

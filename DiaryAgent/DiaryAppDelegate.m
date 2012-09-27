@@ -18,6 +18,9 @@
 {
     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
     DiaryMasterViewController *firstViewController = (DiaryMasterViewController *)[[navigationController viewControllers] objectAtIndex:0];
+    LoadingView *loadingView =
+    [LoadingView loadingViewInView:firstViewController.view];
+    firstViewController.loadingView = loadingView;
     
     DiaryPostDataController *aDataController = [[DiaryPostDataController alloc] initWithTable:firstViewController];
     firstViewController.dataController = aDataController;
