@@ -20,17 +20,9 @@
 
 @implementation DiaryMasterViewController
 
-
-
 @synthesize dataController = _dataController, loadingView=_loadingView;
 
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-}
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
         NSString *savedValue = [[NSUserDefaults standardUserDefaults]
                             stringForKey:@"loginData"];
@@ -46,8 +38,7 @@
     }
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
     NSString *alertTitle = alertView.title;
     if([alertTitle isEqualToString:@"Login"] && [title isEqualToString:@"OK"])
@@ -74,6 +65,7 @@
         
     }
 }
+
 -(IBAction)changeUser:(id)sender{
     UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Login"
                                                       message:nil
@@ -86,6 +78,7 @@
 
     
 }
+
 -(IBAction)changeDiary:(id)sender{
     UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Diary"
                                                       message:@"Выберите дневник"
@@ -96,14 +89,13 @@
     
     [message show];
 }
-- (void)viewDidUnload
-{
+
+- (void)viewDidUnload{
+    
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
@@ -140,6 +132,12 @@
     [postCell.avatarImageView setImage:postAtIndex.avatarImage];
 
     postCell.textView.text = postAtIndex.shortDescription;
+    
+    CGRect frame = postCell.textView.frame;
+    frame.size.height = postCell.textView.contentSize.height;
+    postCell.textView.frame = frame;
+    //postCell.textView.backgroundColor = [UIColor redColor];
+
     return postCell;
 }
 
@@ -153,9 +151,7 @@
 {
     if ([[segue identifier] isEqualToString:@"showDiaryPostDetails"]) {
         
-
         DiaryDetailViewController *detailViewController = [segue destinationViewController];
-        
         detailViewController.diaryPost = [self.dataController objectInListAtIndex:[self.tableView indexPathForSelectedRow].row];
         
     }
@@ -164,19 +160,33 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 350;
+    DiaryPost *diaryPost = [self.dataController.diaryPostList objectAtIndex:[indexPath row]];
+    NSString *text = diaryPost.shortDescription;
+    CGSize constraint = CGSizeMake(320 - (15 * 2), 350);
+    CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:13] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+    
+    CGFloat height = MAX(size.height, 20);
+    
+    return height + 130;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-       [self performSegueWithIdentifier:@"showDiaryPostDetails" sender:self];
+    [self performSegueWithIdentifier:@"showDiaryPostDetails" sender:self];
 }
--(void)reloadData{
-    [(UITableView *)self.view reloadData];
+
+-(void)reload{
+    [self.tableView reloadData];
     [self.loadingView
      performSelector:@selector(removeView)
      withObject:nil];
-}
 
+}
+- (void)refresh {
+
+    DiaryPostDataController *aDataController = [[DiaryPostDataController alloc] init];
+    aDataController.delegate = self;
+    self.dataController = aDataController;
+    [self performSelector:@selector(stopLoading) withObject:nil afterDelay:2.0];
+}
 @end

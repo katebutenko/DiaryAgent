@@ -21,9 +21,10 @@
     
     if (self) {
         DiaryConnector *diaryConnector = [[DiaryConnector alloc] init];
-        NSString *text = [diaryConnector getRawDataFromURL:userLink selectorId:@"contant"];
+        diaryConnector.delegate = self;
+        [diaryConnector asyncGetHTMLFromURL:userLink];
 
-        _rawProfileData = text;
+        _rawProfileData = @"test";
         _username = nil;
         
         //assign and store an avatarImage
@@ -37,6 +38,23 @@
     
     return nil;
 
+}
+
+-(void)dataReceived:(NSString *)html{
+    NSError *error = nil;
+    HTMLParser *parser = [[HTMLParser alloc] initWithString:html error:&error];
+    
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+    
+    HTMLNode *bodyNode = [parser body];
+    HTMLNode *mynode = [bodyNode findChildWithAttribute:@"id" matchingName:@"contant" allowPartial:FALSE];
+    NSString *rawContents = [[mynode rawContents] copy];
+    NSLog(@"text %@",rawContents);
+    
+    self.rawProfileData = rawContents;
+    [self.delegate userProfileDidFinishLoad];
 }
 
 

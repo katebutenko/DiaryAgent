@@ -21,31 +21,37 @@
 @synthesize avatar;
 @synthesize delegate = _delegate;
 @synthesize userProfile = _userProfile;
-@synthesize userProfileWebView;
+@synthesize userProfileWebView = _userProfileWebView;
+@synthesize loadingView;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (void)setUserProfile:(UserProfile *)userProfile
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+    if (_userProfile != userProfile){
+        _userProfile = userProfile;
     }
-    return self;
+    _userProfile.delegate = self;
+}
+
+- (void)setUserProfileWebView:(UIWebView *)userProfileWebView
+{
+    if (_userProfileWebView != userProfileWebView){
+        _userProfileWebView = userProfileWebView;
+    }
+    _userProfileWebView.delegate = self;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	[self configureView];
 }
 
 - (void)viewDidUnload
 {
     [self setUsername:nil];
     [self setAvatar:nil];
-    self.userProfile = nil;
+    [self setUserProfile:nil];
     [self setUserProfileWebView:nil];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -54,17 +60,17 @@
 }
 
 - (IBAction)done:(id)sender {
-    [[self delegate] UserProfileViewControllerDidFinish:self];
+    [self.delegate UserProfileViewControllerDidFinish:self];
 }
 
-- (void)configureView
-{
-    // Update the user interface for the detail item.
-    
-    UserProfile *profile = self.userProfile;
-    if (profile) {
-        [self.userProfileWebView loadHTMLString:[self.userProfile rawProfileData] baseURL:nil];
-        }
+-(void)userProfileDidFinishLoad{
+    [self.userProfileWebView loadHTMLString:[self.userProfile rawProfileData] baseURL:nil];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+    [self.loadingView
+     performSelector:@selector(removeView)
+     withObject:nil];
 }
 
 @end

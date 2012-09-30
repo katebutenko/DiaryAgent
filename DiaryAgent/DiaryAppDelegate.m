@@ -19,11 +19,13 @@
     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
     DiaryMasterViewController *firstViewController = (DiaryMasterViewController *)[[navigationController viewControllers] objectAtIndex:0];
     LoadingView *loadingView =
-    [LoadingView loadingViewInView:firstViewController.view];
+    [LoadingView loadingViewInView:firstViewController.tableView];
     firstViewController.loadingView = loadingView;
     
-    DiaryPostDataController *aDataController = [[DiaryPostDataController alloc] initWithTable:firstViewController];
+    DiaryPostDataController *aDataController = [[DiaryPostDataController alloc] init];
+    aDataController.delegate = firstViewController;
     firstViewController.dataController = aDataController;
+    //[firstViewController.tableView reloadData];
     return YES;
 }
 							

@@ -8,15 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "HTMLNode.h"
+#import "DiaryConnector.h"
+#import "DiaryMasterViewController.h"
+
 @class DiaryPost;
 
-@interface DiaryDetailViewController :  UIViewController
+@interface DiaryDetailViewController :  UIViewController <DiaryConnectorDelegate, UIWebViewDelegate>
 
 @property (strong, nonatomic) DiaryPost *diaryPost;
+
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *avatar;
-
 @property (weak, nonatomic) IBOutlet UIWebView *diaryPostWebView;
--(void)setWebData:(HTMLNode *)data;
+
 @end

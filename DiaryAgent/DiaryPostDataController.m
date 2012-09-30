@@ -9,6 +9,7 @@
 #import "DiaryPostDataController.h"
 #import "DiaryPost.h"
 #import "DiaryConnector.h"
+#import "HTMLparser.h"
 #define add(A,B) [(A) stringByAppendingString:(B)]
 
 @interface DiaryPostDataController()
@@ -20,7 +21,6 @@
 @implementation DiaryPostDataController
 
 @synthesize diaryPostList = _diaryPostList;
-@synthesize table = _table;
 
 - (void)setDiaryPostList:(NSMutableArray *)newList {
     if (_diaryPostList != newList) {
@@ -36,24 +36,36 @@
     return nil;
 }
 
-- (id)initWithTable:(UITableViewController *)table {
-    if (self = [super init]) {
-        _table = table;
-        [self initPostList];
-        return self;
-    }
-    return nil;
-}
 -(void)initPostList{
-
-    DiaryConnector *diaryConnector = [[DiaryConnector alloc] initWithViewController:self];
+    DiaryConnector *diaryConnector = [[DiaryConnector alloc] init];
+    diaryConnector.delegate = self;
     //[diaryConnector asyncTest];
     NSString *diaryName = [[NSUserDefaults standardUserDefaults]
                                   stringForKey:@"diaryName"];
     if ([diaryName length]==0){
         diaryName = @"khkh";
     }
-    [diaryConnector asyncGetFavorites:add(@"http://",diaryName)];
+    NSString *savedData;
+    //get the documents directory:
+    NSArray *paths = NSSearchPathForDirectoriesInDomains
+    (NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    //make a file name to write the data to using the documents directory:
+    NSString *fileName = [NSString stringWithFormat:@"%@/favoritesFile2.txt",
+                          documentsDirectory];
+    NSLog(@"Error2: %@", fileName);
+    savedData = [[NSString alloc] initWithContentsOfFile:fileName
+                                                encoding:NSWindowsCP1251StringEncoding error:nil];
+    if ([savedData length]==0){
+        diaryName = add(@"http://",diaryName);
+        [diaryConnector asyncGetHTMLFromURL:add(diaryName,@".diary.ru/?favorite")];
+    
+    }
+    else{
+        
+        [self dataReceived:savedData];
+    }
 
     
 }
@@ -65,13 +77,22 @@ return [self.diaryPostList count];
 - (DiaryPost *)objectInListAtIndex:(NSUInteger)theIndex {
 return [self.diaryPostList objectAtIndex:theIndex];
 }
--(void) addPostWithTitle:(NSString *)title username:(NSString *)username shortDescription:(NSString *)shortDescription   avatar:(NSString *)avatar userLink:(NSString *)userLink{
+- (void) addPostWithTitle:(NSString *)title username:(NSString *)username shortDescription:(NSString *)shortDescription   avatar:(NSString *)avatar userLink:(NSString *)userLink{
     //DiaryPost *post = [[DiaryPost alloc] initWithName:title username:username shortDescription:shortDescription avatar:avatar userLink:userLink];
     //[self.diaryPostList addObject:post];
 }
 
--(void)setWebData:(HTMLNode *)data{
-    NSArray *postsArray = [data findChildrenWithAttribute:@"class" matchingName:@"singlePost  count" allowPartial:TRUE];
+-(void)dataReceived:(NSString *)html{
+    NSError *error = nil;
+    HTMLParser *parser = [[HTMLParser alloc] initWithString:html error:&error];
+    
+    if (error) {
+        NSLog(@"Error: %@", error);
+        return;
+    }
+    
+    HTMLNode *bodyNode = [parser body];
+    NSArray *postsArray = [bodyNode findChildrenWithAttribute:@"class" matchingName:@"singlePost  count" allowPartial:TRUE];
     NSMutableArray *diaryPostsArray = [[NSMutableArray alloc] init];
     
     for (HTMLNode *singlePost in postsArray){
@@ -90,21 +111,30 @@ return [self.diaryPostList objectAtIndex:theIndex];
         //short description
         
         NSString *postDescription = [[singlePost findChildOfClass:@"paragraph"] allContents] ;
-        NSLog(@"Text: %@",postDescription);
+        
         NSString *trimmedString = [postDescription stringByTrimmingCharactersInSet:
                                    [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        NSLog(@"Text: %@",trimmedString);
         
+       
         if ([trimmedString length]>350){
             trimmedString = [trimmedString substringToIndex:350];
         }
         
+        //Delete tags, as they ruined the height of the tableview cells
+        NSRange rangeOfTags = [trimmedString rangeOfString:@"@темы"];
+        if (rangeOfTags.length > 0){
+            trimmedString = [trimmedString stringByPaddingToLength:rangeOfTags.location-2 withString:@"." startingAtIndex:0];
+            trimmedString = [trimmedString stringByTrimmingCharactersInSet:
+                             [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        }
+        
+
         DiaryPost *diaryPost = [[DiaryPost alloc] initWithName:postTitle username:userName shortDescription:trimmedString avatar:avatar userLink:userLink postLink:postLink];
         [diaryPostsArray addObject:diaryPost];
     }
     
-        self.diaryPostList = diaryPostsArray;
-        [self.table performSelector:@selector(reloadData)];
+    self.diaryPostList = diaryPostsArray;
+    [self.delegate reload];
     
 }
 

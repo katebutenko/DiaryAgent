@@ -12,123 +12,16 @@
 #import "DiaryPost.h"
 
 #define add(A,B) [(A) stringByAppendingString:(B)]
+
 @interface DiaryConnector()
-@property (nonatomic, copy) NSMutableData *data;
-@property (nonatomic, weak) id viewController;
--(void)handledata;
+    @property (nonatomic, copy) NSMutableData *data;
+    -(void)handledata;
 @end
+
 @implementation DiaryConnector
 @synthesize data;
-@synthesize viewController = _viewController;
 
--(HTMLNode *) getRawDataFromURL:(NSString *)URL selectorClass:(NSString *)selectorClass{
-    // return [bodyNode findChildOfClass:selectorClass];
-}
-
--(NSString *) getRawDataFromURL:(NSString *)URL selectorId:(NSString *)selectorId{
-    NSMutableURLRequest *request =
-    [NSMutableURLRequest requestWithURL:[NSURL URLWithString:URL]
-                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-                        timeoutInterval:10];
-    
-    [request setHTTPMethod: @"GET"];
-    NSString *savedCredentials = [[NSUserDefaults standardUserDefaults]
-                                  stringForKey:@"loginData"];
-    
-    [request addValue:savedCredentials forHTTPHeaderField:@"Cookie"];
-    
-    NSError *requestError;
-    NSURLResponse *urlResponse = nil;
-    
-    
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
-    NSString *html = [[NSString alloc] initWithBytes: [response bytes] length:[response length] encoding:NSWindowsCP1251StringEncoding];
-    
-    NSError *error = nil;
-    HTMLParser *parser = [[HTMLParser alloc] initWithString:html error:&error];
-    
-    if (error) {
-        NSLog(@"Error: %@", error);
-        return nil;
-    }
-    
-    HTMLNode *bodyNode = [parser body];
-    HTMLNode *mynode = [bodyNode findChildWithAttribute:@"id" matchingName:selectorId allowPartial:FALSE];
-    
-    
-    return [mynode rawContents];
-}
-
--(NSMutableArray *) getFavorites:(NSString *)diaryName{
-
-    NSMutableURLRequest *request =
-    [NSMutableURLRequest requestWithURL:[NSURL URLWithString:add(diaryName,@".diary.ru/?favorite")] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-                        timeoutInterval:10];
-    
-    [request setHTTPMethod: @"GET"];
-    
-    [request setValue:@"text/html" forHTTPHeaderField:@"Content-Type"];
-
-    NSString *savedCredentials = [[NSUserDefaults standardUserDefaults]
-                            stringForKey:@"loginData"];
-    
-    [request addValue:savedCredentials forHTTPHeaderField:@"Cookie"];
-    NSError *requestError;
-    NSURLResponse *urlResponse = nil;
-    
-    
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
-    NSString *html = [[NSString alloc] initWithBytes: [response bytes] length:[response length] encoding:NSWindowsCP1251StringEncoding];
-    NSLog(@"html: %@", html);
-    //find a title
-    
-    
-    NSError *error = nil;
-    HTMLParser *parser = [[HTMLParser alloc] initWithString:html error:&error];
-    
-    if (error) {
-        NSLog(@"Error: %@", error);
-        return nil;
-    }
-    
-    HTMLNode *bodyNode = [parser body];
-   NSArray *postsArray = [bodyNode findChildrenWithAttribute:@"class" matchingName:@"singlePost  count" allowPartial:TRUE];
-    NSMutableArray *diaryPostsArray = [[NSMutableArray alloc] init];
-    
-    for (HTMLNode *singlePost in postsArray){
-        //find name of the posts's author
-        HTMLNode *userNameNode = [singlePost findChildOfClass:@"authorName"];
-        NSString *userName = [userNameNode allContents];
-        NSString *userLink = [[userNameNode findChildTag:@"a"] getAttributeNamed:@"href"];
-        
-        //find title of the post
-        NSString *postTitle = [[[singlePost findChildWithAttribute:@"class" matchingName:@"postTitle" allowPartial:TRUE] findChildTag:@"h2"] allContents];
-        //avatar
-        NSString *avatar = [[[singlePost findChildOfClass:@"avatar"] findChildTag:@"img"] getAttributeNamed:@"src"];
-        
-        //link to the post
-        NSString *postLink = [[[singlePost findChildOfClass:@"postLinksBackg"] findChildTag:@"a"] getAttributeNamed:@"href"];
-        //short description
-        
-        NSString *postDescription = [[singlePost findChildOfClass:@"paragraph"] allContents] ;
-        NSLog(@"Text: %@",postDescription);
-        NSString *trimmedString = [postDescription stringByTrimmingCharactersInSet:
-                                   [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        NSLog(@"Text: %@",trimmedString);
-       
-        if ([trimmedString length]>350){
-            trimmedString = [trimmedString substringToIndex:350];
-        }
-        
-        DiaryPost *diaryPost = [[DiaryPost alloc] initWithName:postTitle username:userName shortDescription:trimmedString avatar:avatar userLink:userLink postLink:postLink];
-        [diaryPostsArray addObject:diaryPost];
-    }
-    
-    return diaryPostsArray;
-
-}
-
--(NSString *)getEncodedDataForLogin:(NSString *)username password:(NSString *)password{
+-(NSString *)getEncodedDataForLogin:(NSString *)username password:(NSString *)password {
     NSMutableURLRequest *request =
     [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://www.diary.ru/login.php"] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                         timeoutInterval:10];
@@ -142,8 +35,8 @@
     credentials = (NSMutableString *)add(credentials,@"&user_pass=");
     credentials = (NSMutableString *)add(credentials,password);
     
-    NSData *data = [credentials dataUsingEncoding:NSUTF8StringEncoding];
-    [request setHTTPBody:data];
+    NSData *dataSet = [credentials dataUsingEncoding:NSUTF8StringEncoding];
+    [request setHTTPBody:dataSet];
     
     
     NSError *requestError;
@@ -151,7 +44,7 @@
     
     [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
     
-NSDictionary* headers = [(NSHTTPURLResponse *)urlResponse allHeaderFields];
+    NSDictionary* headers = [(NSHTTPURLResponse *)urlResponse allHeaderFields];
     
     NSString *specificCookie = [headers objectForKey:@"Set-Cookie"];
     
@@ -178,32 +71,7 @@ NSDictionary* headers = [(NSHTTPURLResponse *)urlResponse allHeaderFields];
   
 }
 
--(id)initWithViewController:(id)viewController{
-    self = [super init];
-    
-    if (self) {
-        _viewController = viewController;
-        return self;
-    }
-    return nil;
-}
--(void) asyncGetFavorites:(NSString *)diaryName{
-    NSMutableURLRequest *request =
-    [NSMutableURLRequest requestWithURL:[NSURL URLWithString:add(diaryName,@".diary.ru/?favorite")]
-                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-                        timeoutInterval:10];
-    
-    [request setHTTPMethod: @"GET"];
-    NSString *savedCredentials = [[NSUserDefaults standardUserDefaults]
-                                  stringForKey:@"loginData"];
-    
-    [request addValue:savedCredentials forHTTPHeaderField:@"Cookie"];
-    
-     NSURLConnection* connection = [[NSURLConnection alloc] initWithRequest:request  delegate:self startImmediately:YES];
-    
-}
-
-- (void)asyncGetPostFromURL:(NSString *)URL{
+- (void)asyncGetHTMLFromURL:(NSString *)URL {
     NSMutableURLRequest *request =
     [NSMutableURLRequest requestWithURL:[NSURL URLWithString:URL]
                             cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
@@ -215,42 +83,43 @@ NSDictionary* headers = [(NSHTTPURLResponse *)urlResponse allHeaderFields];
     
     [request addValue:savedCredentials forHTTPHeaderField:@"Cookie"];
     
-     NSURLConnection* connection = [[NSURLConnection alloc] initWithRequest:request  delegate:self startImmediately:YES];    
+    NSURLConnection* connection = [[NSURLConnection alloc] initWithRequest:request  delegate:self startImmediately:YES];
     
 }
 
-
--(void)connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse*)response
-{
+-(void)connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse*)response {
     data = [[NSMutableData alloc] init]; // _data being an ivar
 }
--(void)connection:(NSURLConnection*)connection didReceiveData:(NSData*)receiveddata
-{
-    [data appendData:receiveddata];
+-(void)connection:(NSURLConnection*)connection didReceiveData:(NSData*)receivedData {
+    [data appendData:receivedData];
 }
--(void)connection:(NSURLConnection*)connection didFailWithError:(NSError*)error
-{
+-(void)connection:(NSURLConnection*)connection didFailWithError:(NSError*)error {
     // Handle the error properly
 }
--(void)connectionDidFinishLoading:(NSURLConnection*)connection
-{
+-(void)connectionDidFinishLoading:(NSURLConnection*)connection {
     [self handledata]; // Deal with the data
 }
--(void)handledata{
-
+-(void)handledata {
     NSString *html = [[NSString alloc] initWithBytes: [data bytes] length:[data length] encoding:NSWindowsCP1251StringEncoding];
-    
-    NSError *error = nil;
-    HTMLParser *parser = [[HTMLParser alloc] initWithString:html error:&error];
-    
-    if (error) {
-        NSLog(@"Error: %@", error);
-        return;
-    }
-    
-    HTMLNode *bodyNode = [parser body];
-    
-    [self.viewController performSelector:@selector(setWebData:) withObject:bodyNode];
+    //[self writeToTextFile:html];
+    [self.delegate dataReceived:html];
 }
+
+-(void) writeToTextFile:(NSString *)html{
+    //get the documents directory:
+    NSArray *paths = NSSearchPathForDirectoriesInDomains
+    (NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    //make a file name to write the data to using the documents directory:
+    NSString *fileName = [NSString stringWithFormat:@"%@/favoritesFile1.txt",
+                          documentsDirectory];
+    NSLog(@"Filename: %@", fileName);
+    //save content to the documents directory
+    [html writeToFile:fileName atomically:NO encoding:NSWindowsCP1251StringEncoding error:nil];
+    
+}
+
+
 
 @end

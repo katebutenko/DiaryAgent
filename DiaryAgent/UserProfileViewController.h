@@ -7,16 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UserProfile.h"
 
+@class UserProfile;
 @protocol UserProfileViewControllerDelegate;
+@protocol UserProfileDelegate;
 
-@interface UserProfileViewController : UIViewController
+@interface UserProfileViewController : UIViewController <UserProfileDelegate, UIWebViewDelegate>
+
 @property (weak, nonatomic) id <UserProfileViewControllerDelegate> delegate;
+
+@property (strong, nonatomic) UserProfile *userProfile;
 @property (weak, nonatomic) IBOutlet UILabel *username;
 @property (weak, nonatomic) IBOutlet UIImageView *avatar;
-@property (strong, nonatomic) UserProfile *userProfile;
 @property (weak, nonatomic) IBOutlet UIWebView *userProfileWebView;
+@property (strong, nonatomic) UIView *loadingView;
 
 - (IBAction)done:(id)sender;
 
@@ -24,5 +28,4 @@
 
 @protocol UserProfileViewControllerDelegate <NSObject>
 - (void)UserProfileViewControllerDidFinish:(UserProfileViewController *)controller;
-
 @end

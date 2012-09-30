@@ -8,18 +8,22 @@
 
 #import <Foundation/Foundation.h>
 #import "HTMLNode.h"
+#import "DiaryConnector.h"
+#import "DiaryPost.h"
+#import "DiaryMasterViewController.h"
 
-@class DiaryPost;
+@protocol DiaryPostDataControllerDelegate <NSObject>
+- (void)reload;
+@end
 
-@interface DiaryPostDataController : NSObject
+@interface DiaryPostDataController : NSObject <DiaryConnectorDelegate>
 
 @property (nonatomic, copy) NSMutableArray *diaryPostList;
 @property (nonatomic, weak) UITableViewController *table;
+@property (weak, nonatomic) id <DiaryPostDataControllerDelegate> delegate;
 
 - (NSUInteger)countOfList;
 - (DiaryPost *)objectInListAtIndex:(NSUInteger)theIndex;
-- (void)addPostWithTitle:(NSString *)title username:(NSString *)username shortDescription:(NSString *)shortDescription 
-avatar:(NSString *)avatar userLink:(NSString *)userLink;
-- (id)initWithTable:(UITableViewController *)table;
--(void)setWebData:(HTMLNode *)data;
+- (void)addPostWithTitle:(NSString *)title username:(NSString *)username shortDescription:(NSString *)shortDescription avatar:(NSString *)avatar userLink:(NSString *)userLink;
+
 @end

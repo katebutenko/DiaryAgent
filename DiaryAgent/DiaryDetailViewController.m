@@ -25,14 +25,26 @@
 @end
 
 @implementation DiaryDetailViewController
-@synthesize avatar = _avatar;
-@synthesize diaryPostWebView = _diaryPostWebView;
-@synthesize diaryPost=_diaryPost, titleLabel = _titleLabel, usernameLabel = _usernameLabel, data = _data, loadingView=_loadingView;
+
+@synthesize diaryPost=_diaryPost,
+            titleLabel = _titleLabel,
+            usernameLabel = _usernameLabel,
+            data = _data,
+            loadingView=_loadingView,
+            diaryPostWebView = _diaryPostWebView,
+            avatar = _avatar;
 
 - (void)UserProfileViewControllerDidFinish:(UserProfileViewController *)controller {
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
+- (void)setDiaryPostWebView:(UIWebView *)diaryPostWebView
+{
+    if (_diaryPostWebView != diaryPostWebView){
+        _diaryPostWebView = diaryPostWebView;
+    }
+    _diaryPostWebView.delegate = self;
+}
 #pragma mark - Managing the detail item
 
 - (void)setDiaryPost:(id)newDiaryPost
@@ -48,30 +60,38 @@
 {
     // Update the user interface for the detail item.
     DiaryPost *post = self.diaryPost;
-    LoadingView *loadingView =
-    [LoadingView loadingViewInView:self.view];
+    LoadingView *loadingView = [LoadingView loadingViewInView:self.view];
     self.loadingView = loadingView;
     if (post) {
         self.titleLabel.text = post.title;
         
         [self.avatar setImage:post.avatarImage];
-        DiaryConnector *diaryConnector = [[DiaryConnector alloc] initWithViewController:self];
-        [diaryConnector asyncGetPostFromURL:post.postLink];
+        
+         DiaryConnector *diaryConnector = [[DiaryConnector alloc] init];
+         diaryConnector.delegate = self;
+        [diaryConnector asyncGetHTMLFromURL:post.postLink];
         
         self.usernameLabel.text = post.username;
     }
 }
--(void)setWebData:(HTMLNode *)data{
-    self.data = data;
+
+-(void)dataReceived:(NSString *)html{
+    NSError *error = nil;
+    HTMLParser *parser = [[HTMLParser alloc] initWithString:html error:&error];
+    
+    if (error) {
+        NSLog(@"Error: %@", error);
+        return;
+    }
+    
+    HTMLNode *bodyNode = [parser body];
+    self.data = bodyNode;
     HTMLNode *postNode = [self.data findChildWithAttribute:@"class" matchingName:@"singlePost  count" allowPartial:TRUE];
     
     HTMLNode *postContentNode = [postNode findChildOfClass:@"paragraph"];
     NSString *text = [postContentNode rawContents];
     [self.diaryPostWebView loadHTMLString:text baseURL:nil];
-    
-    [self.loadingView
-     performSelector:@selector(removeView)
-     withObject:nil];
+  
 }
 - (void)viewDidLoad
 {
@@ -81,7 +101,7 @@
 - (void)viewDidUnload
 {
     // Release any retained subviews of the main view.
-    self.diaryPost = nil;
+    [self setDiaryPost:nil];
     [self setAvatar:nil];
     [self setDiaryPostWebView:nil];
     [super viewDidUnload];
@@ -95,10 +115,20 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    UserProfileViewController *userProfileController = (UserProfileViewController *)[[[segue destinationViewController] viewControllers] objectAtIndex:0];
+    UserProfileViewController *userProfileViewController = (UserProfileViewController *)[[[segue destinationViewController] viewControllers] objectAtIndex:0];
+    
+    LoadingView *loadingView = [LoadingView loadingViewInView:userProfileViewController.view];
+    userProfileViewController.loadingView = loadingView;
+    
     UserProfile *userProfile = [[UserProfile alloc] initWithID:self.diaryPost.userLink];
-    userProfileController.userProfile = userProfile;
-    userProfileController.delegate = self;
+    userProfileViewController.userProfile = userProfile;
+    userProfileViewController.delegate = self;
+    
 }
 
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+    [self.loadingView
+     performSelector:@selector(removeView)
+     withObject:nil];
+}
 @end

@@ -8,11 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
-@interface UserProfile : NSObject
+@protocol DiaryConnectorDelegate;
+
+@protocol UserProfileDelegate <NSObject>
+- (void)userProfileDidFinishLoad;
+@end
+
+@interface UserProfile : NSObject <DiaryConnectorDelegate>
 
 @property (nonatomic, copy) NSString *username;
 @property (nonatomic, copy) UIImage *avatarImage;
 @property (nonatomic, copy) NSString *rawProfileData;
+@property (weak, nonatomic) id <UserProfileDelegate> delegate;
 
 -(id)initWithID:(NSString *)userLink;
 
