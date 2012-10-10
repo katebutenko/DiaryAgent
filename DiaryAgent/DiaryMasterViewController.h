@@ -7,12 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DiaryDetailViewController.h"
 #import "LoadingView.h"
 #import "PullToRefresh/PullRefreshTableViewController.h"
-
-@class DiaryPostDataController;
-@protocol DiaryPostDataControllerDelegate;
+#import "DiaryPostDataController.h"
 
 @interface DiaryMasterViewController : PullRefreshTableViewController <DiaryPostDataControllerDelegate>
 

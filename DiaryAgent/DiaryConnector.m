@@ -10,10 +10,13 @@
 #import "HTMLParser.h"
 #import "HTMLNode.h"
 #import "DiaryPost.h"
+#import "DiaryImageCache.h"
 
 #define add(A,B) [(A) stringByAppendingString:(B)]
 
-@interface DiaryConnector()
+@interface DiaryConnector(){
+    NSURLConnection* _connection;
+}
     @property (nonatomic, copy) NSMutableData *data;
     -(void)handledata;
 @end
@@ -83,7 +86,7 @@
     
     [request addValue:savedCredentials forHTTPHeaderField:@"Cookie"];
     
-    NSURLConnection* connection = [[NSURLConnection alloc] initWithRequest:request  delegate:self startImmediately:YES];
+    _connection = [[NSURLConnection alloc] initWithRequest:request  delegate:self startImmediately:YES];
     
 }
 
@@ -97,14 +100,24 @@
     // Handle the error properly
 }
 -(void)connectionDidFinishLoading:(NSURLConnection*)connection {
-    [self handledata]; // Deal with the data
-}
--(void)handledata {
     NSString *html = [[NSString alloc] initWithBytes: [data bytes] length:[data length] encoding:NSWindowsCP1251StringEncoding];
-    //[self writeToTextFile:html];
+    //[self writeToTextFile:html]; //do not use it now, but possibly later it will be needed
     [self.delegate dataReceived:html];
 }
 
++ (UIImage *)loadImageForPath:(NSString *)imagePath{
+    //look in the file for stored image, if not found load from web
+    UIImage *image = [[DiaryImageCache sharedImageCache] getImageDataForPath:imagePath];
+    if (!image){
+        NSURL *imageURL = [NSURL URLWithString:imagePath];
+        NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
+        image = [UIImage imageWithData:imageData];
+        [[DiaryImageCache sharedImageCache] saveImage:image forPath:imagePath];
+    }
+    return image;
+}
+
+//currently not used
 -(void) writeToTextFile:(NSString *)html{
     //get the documents directory:
     NSArray *paths = NSSearchPathForDirectoriesInDomains

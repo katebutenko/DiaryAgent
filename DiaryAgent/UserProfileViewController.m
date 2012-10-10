@@ -9,20 +9,7 @@
 #import "UserProfileViewController.h"
 #import "UserProfile.h"
 
-@interface UserProfileViewController ()
-
-- (void)configureView;
-
-@end
-
 @implementation UserProfileViewController
-
-@synthesize username;
-@synthesize avatar;
-@synthesize delegate = _delegate;
-@synthesize userProfile = _userProfile;
-@synthesize userProfileWebView = _userProfileWebView;
-@synthesize loadingView;
 
 - (void)setUserProfile:(UserProfile *)userProfile
 {

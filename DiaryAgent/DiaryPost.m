@@ -12,7 +12,9 @@
 
 @synthesize title = _title, username = _username, shortDescription = _shortDescription, avatar = _avatar, avatarImage = _avatarImage, userLink = _userLink, postLink=_postLink;
 
--(id)initWithName:(NSString *)title username:(NSString *)username shortDescription:(NSString *)shortDescription avatar:(NSString *)avatar userLink:(NSString *)userLink postLink:(NSString *)postLink{
+-(id)initWithName:(NSString *)title username:(NSString *)username
+                    shortDescription:(NSString *)shortDescription avatar:(NSString *)avatar
+                    userLink:(NSString *)userLink postLink:(NSString *)postLink{
     
     self = [super init];
     
@@ -24,10 +26,8 @@
         _userLink = userLink;
         _postLink = postLink;
         //assign and store an avatarImage
-        NSURL *imageURL = [NSURL URLWithString:avatar];
-        NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
-        
-        _avatarImage = [UIImage imageWithData:imageData];
+
+        _avatarImage = [DiaryConnector loadImageForPath:avatar];
         
         return self;
     }

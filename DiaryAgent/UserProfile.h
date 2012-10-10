@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@protocol DiaryConnectorDelegate;
+#import "DiaryConnector.h"
 
 @protocol UserProfileDelegate <NSObject>
 - (void)userProfileDidFinishLoad;

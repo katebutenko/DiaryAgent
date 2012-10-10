@@ -10,7 +10,7 @@
 #import "HTMLNode.h"
 #import "DiaryConnector.h"
 #import "DiaryPost.h"
-#import "DiaryMasterViewController.h"
+//#import "DiaryMasterViewController.h"
 
 @protocol DiaryPostDataControllerDelegate <NSObject>
 - (void)reload;

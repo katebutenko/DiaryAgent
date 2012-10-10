@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserProfile.h"
 
 @class UserProfile;
 @protocol UserProfileViewControllerDelegate;
-@protocol UserProfileDelegate;
 
 @interface UserProfileViewController : UIViewController <UserProfileDelegate, UIWebViewDelegate>
 

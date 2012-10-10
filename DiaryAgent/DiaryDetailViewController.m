@@ -52,13 +52,11 @@
     if (_diaryPost != newDiaryPost){
         _diaryPost = newDiaryPost;
     }        
-        // Update the view.
-        [self configureView];
+    [self configureView];
 }
 
 - (void)configureView
 {
-    // Update the user interface for the detail item.
     DiaryPost *post = self.diaryPost;
     LoadingView *loadingView = [LoadingView loadingViewInView:self.view];
     self.loadingView = loadingView;
@@ -100,7 +98,6 @@
 
 - (void)viewDidUnload
 {
-    // Release any retained subviews of the main view.
     [self setDiaryPost:nil];
     [self setAvatar:nil];
     [self setDiaryPostWebView:nil];

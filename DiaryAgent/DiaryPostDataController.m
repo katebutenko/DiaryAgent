@@ -39,12 +39,17 @@
 -(void)initPostList{
     DiaryConnector *diaryConnector = [[DiaryConnector alloc] init];
     diaryConnector.delegate = self;
-    //[diaryConnector asyncTest];
     NSString *diaryName = [[NSUserDefaults standardUserDefaults]
                                   stringForKey:@"diaryName"];
     if ([diaryName length]==0){
         diaryName = @"khkh";
     }
+    diaryName = add(@"http://",diaryName);
+    [diaryConnector asyncGetHTMLFromURL:add(diaryName,@".diary.ru/?favorite")];
+}
+
+//currently not used
+-(void)getDataFromFile{
     NSString *savedData;
     //get the documents directory:
     NSArray *paths = NSSearchPathForDirectoriesInDomains
@@ -58,18 +63,15 @@
     savedData = [[NSString alloc] initWithContentsOfFile:fileName
                                                 encoding:NSWindowsCP1251StringEncoding error:nil];
     if ([savedData length]==0){
-        diaryName = add(@"http://",diaryName);
-        [diaryConnector asyncGetHTMLFromURL:add(diaryName,@".diary.ru/?favorite")];
-    
+        //diaryName = add(@"http://",diaryName);
+        //[diaryConnector asyncGetHTMLFromURL:add(diaryName,@".diary.ru/?favorite")];
+        
     }
     else{
         
         [self dataReceived:savedData];
     }
-
-    
 }
-
 - (NSUInteger)countOfList {
 return [self.diaryPostList count];
 }

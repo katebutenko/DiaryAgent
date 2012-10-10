@@ -20,6 +20,7 @@
 		05C15228160F2A5D00F9AA32 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C15227160F2A5D00F9AA32 /* libxml2.dylib */; };
 		05D97984161389A600F195A0 /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D97983161389A600F195A0 /* LoadingView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		05D9798616138CBD00F195A0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05D9798516138CBD00F195A0 /* QuartzCore.framework */; };
+		0A161B431625811100D38BEF /* DiaryImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A161B421625811100D38BEF /* DiaryImageCache.m */; };
 		CEA4C9651606447D008C856B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA4C9641606447D008C856B /* UIKit.framework */; };
 		CEA4C9671606447D008C856B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA4C9661606447D008C856B /* Foundation.framework */; };
 		CEA4C9691606447D008C856B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA4C9681606447D008C856B /* CoreGraphics.framework */; };
@@ -67,6 +68,8 @@
 		05D97982161389A600F195A0 /* LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingView.h; sourceTree = "<group>"; };
 		05D97983161389A600F195A0 /* LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingView.m; sourceTree = "<group>"; };
 		05D9798516138CBD00F195A0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		0A161B411625811100D38BEF /* DiaryImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiaryImageCache.h; sourceTree = "<group>"; };
+		0A161B421625811100D38BEF /* DiaryImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiaryImageCache.m; sourceTree = "<group>"; };
 		CEA4C9601606447D008C856B /* DiaryAgent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiaryAgent.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA4C9641606447D008C856B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CEA4C9661606447D008C856B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -135,6 +138,56 @@
 			path = LoadingView;
 			sourceTree = "<group>";
 		};
+		0A161B3C1625593900D38BEF /* FavoritesScreen */ = {
+			isa = PBXGroup;
+			children = (
+				05BD70DF160F861300277A82 /* NewCell.xib */,
+				05BD70E1160F864700277A82 /* NewTableCell.h */,
+				05BD70E2160F864700277A82 /* NewTableCell.m */,
+				CEA4C98716064731008C856B /* DiaryPostDataController.h */,
+				CEA4C98816064731008C856B /* DiaryPostDataController.m */,
+				CEA4C9791606447D008C856B /* DiaryMasterViewController.h */,
+				CEA4C97A1606447D008C856B /* DiaryMasterViewController.m */,
+			);
+			name = FavoritesScreen;
+			sourceTree = "<group>";
+		};
+		0A161B3E1625594F00D38BEF /* OnePostScreen */ = {
+			isa = PBXGroup;
+			children = (
+				CEA4C984160644AE008C856B /* DiaryPost.h */,
+				CEA4C985160644AE008C856B /* DiaryPost.m */,
+				CEA4C97C1606447D008C856B /* DiaryDetailViewController.h */,
+				CEA4C97D1606447D008C856B /* DiaryDetailViewController.m */,
+			);
+			name = OnePostScreen;
+			sourceTree = "<group>";
+		};
+		0A161B3F1625769D00D38BEF /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				05C15210160DFB4000F9AA32 /* UserProfileViewController.m */,
+				05C1520F160DFB4000F9AA32 /* UserProfileViewController.h */,
+				05C15212160F114100F9AA32 /* UserProfile.h */,
+				05C15213160F114100F9AA32 /* UserProfile.m */,
+			);
+			name = UserProfile;
+			sourceTree = "<group>";
+		};
+		0A161B40162576D300D38BEF /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				05C15219160F1C3000F9AA32 /* DiaryConnector.h */,
+				05C1521A160F1C3000F9AA32 /* DiaryConnector.m */,
+				051E5AD71618C42000BF52FF /* PullToRefresh */,
+				05D97981161389A600F195A0 /* LoadingView */,
+				05C1521E160F1EF400F9AA32 /* HTMLparser */,
+				0A161B411625811100D38BEF /* DiaryImageCache.h */,
+				0A161B421625811100D38BEF /* DiaryImageCache.m */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
 		CEA4C9551606447D008C856B = {
 			isa = PBXGroup;
 			children = (
@@ -167,30 +220,14 @@
 		CEA4C96A1606447D008C856B /* DiaryAgent */ = {
 			isa = PBXGroup;
 			children = (
-				051E5AD71618C42000BF52FF /* PullToRefresh */,
-				05D97981161389A600F195A0 /* LoadingView */,
-				05C1521E160F1EF400F9AA32 /* HTMLparser */,
-				05C15210160DFB4000F9AA32 /* UserProfileViewController.m */,
-				05C1520F160DFB4000F9AA32 /* UserProfileViewController.h */,
 				CEA4C9731606447D008C856B /* DiaryAppDelegate.h */,
 				CEA4C9741606447D008C856B /* DiaryAppDelegate.m */,
 				CEA4C9761606447D008C856B /* MainStoryboard_1.storyboard */,
-				CEA4C9791606447D008C856B /* DiaryMasterViewController.h */,
-				CEA4C97A1606447D008C856B /* DiaryMasterViewController.m */,
-				CEA4C97C1606447D008C856B /* DiaryDetailViewController.h */,
-				CEA4C97D1606447D008C856B /* DiaryDetailViewController.m */,
+				0A161B3C1625593900D38BEF /* FavoritesScreen */,
+				0A161B3E1625594F00D38BEF /* OnePostScreen */,
+				0A161B3F1625769D00D38BEF /* UserProfile */,
+				0A161B40162576D300D38BEF /* Helpers */,
 				CEA4C96B1606447D008C856B /* Supporting Files */,
-				CEA4C984160644AE008C856B /* DiaryPost.h */,
-				CEA4C985160644AE008C856B /* DiaryPost.m */,
-				CEA4C98716064731008C856B /* DiaryPostDataController.h */,
-				CEA4C98816064731008C856B /* DiaryPostDataController.m */,
-				05C15212160F114100F9AA32 /* UserProfile.h */,
-				05C15213160F114100F9AA32 /* UserProfile.m */,
-				05C15219160F1C3000F9AA32 /* DiaryConnector.h */,
-				05C1521A160F1C3000F9AA32 /* DiaryConnector.m */,
-				05BD70DF160F861300277A82 /* NewCell.xib */,
-				05BD70E1160F864700277A82 /* NewTableCell.h */,
-				05BD70E2160F864700277A82 /* NewTableCell.m */,
 			);
 			path = DiaryAgent;
 			sourceTree = "<group>";
@@ -287,6 +324,7 @@
 				05BD70E3160F864700277A82 /* NewTableCell.m in Sources */,
 				05D97984161389A600F195A0 /* LoadingView.m in Sources */,
 				051E5ADC1618C42100BF52FF /* PullRefreshTableViewController.m in Sources */,
+				0A161B431625811100D38BEF /* DiaryImageCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
